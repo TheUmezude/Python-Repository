@@ -1059,7 +1059,7 @@ send2trash.send2trash('Desktop\\Free-time\\Doyinsola - Copy.docx') # This sends 
 
 
 
-# The 'random', 'math' and 'datetime' modules are very important libraries for particular operations in Python.
+# --------------- The 'random', 'math' and 'datetime' modules are very important libraries for particular operations in Python.
 import random
 import math
 import datetime
@@ -1080,6 +1080,49 @@ result_1 = y + z
 result_2 = x + z  # This would obviously cause an error becouse you can't add an integer to a list
 
 
+# The 'time' library which is built into Python allows for a number of very interesting operations. It is imported as shown;
+import time 
+# Operations in the 'time' library can be used to determine how efficient a written code is. This is done by taking the time before and after the code starts to run, and finding the difference.
+
+# Current time at execution of code
+start_time = time.time()
+# Code block to be run
+print("Hello World!")
+# Current time after execution of code
+end_time = time.time()
+# Time it took for the entire process
+elapsed_time = end_time - start_time 
+print(elapsed_time) # The time gotten here is in seconds from a start time several tens of years ago. You can conver that to readable time with:
+readable_time = time.ctime(elapsed_time)
+print(readable_time)
+
+# A more precise way to check the efficiency of your code is with the 'timeit' module
+import timeit # You can read up on how best to make use of this. -- Also make use of the documentation from Jose.
+
+
+#-------------------------------------- Zipping and unzipping files with Python
+# zipping
+import zipfile
+compressed_file = zipfile.ZipFile('compressed.zip', 'w') # Create the zip file in a manipulable way
+compressed_file.write('first_file.txt', compress_type = zipfile.ZIP_DEFLATED) # Compressing the first file into the zip file -- Note that the zip file is still open.
+compressed_file.write('second_file.txt', compress_type = zipfile.ZIP_DEFLATED) # Compressing the second file into the zip file -- Note that the zip file is still open.
+compressed_file.write('third_file.txt', compress_type = zipfile.ZIP_DEFLATED) # Compressing the third file into the zip file -- Note that the zip file is still open.
+compressed_file.close() # To close the zip file
+
+# unzipping
+zipped_file = zipfile.ZIP_DEFLATED('compressed.zip', 'r')
+zipped_file.extractall('unzipped_content') # This would extract all the files in the zipped folder/file, 'compressed.zip' and put them into the folder, 'unzipped_content'.
+
+# NOTE: With the shell utility library, you can point out an entire folder of contents and zip -- unlike zipping files one by one 
+# zipping
+import shutil
+dir_to_zip = 'C:\\Desktop\\unzipped_content' # We are specifying the directory containing the folder that we would like to compress.
+output_filename = 'example'
+shutil.make_archive(output_filename, 'zip', dir_to_zip) # Sending the command to zip the contents in the file-path variable, 'dir_to_zip' into 'output_filename'.
+# unzipping
+shutil.unpack_archive('example.zip', 'final_unzip', 'zip') # Here, we are specifying the file path of the sipped file, asking for it to be unzipped into 'final_unzip' and specifying the file type.
+# If you want to unzip to your current location, you can leave the destination folder name as an empty string. 'shutil' would automatically create an 'extracted_content' folder in same location.
+
 
 
 #---------------------------------------------- Regular Expressions ----------------------------------------------------------
@@ -1098,14 +1141,15 @@ if pattern in sample_text:
 # However, if you wan to use the 'REGEX' way, we could say
 
 re.search(pattern, sample_text) # This finds the first occurrence of the specified item in the given sample text.
-match1 = re.search(pattern, sample_text)  # This assigns the first occurrence of the searched out item properties to 'match1'. 'match1' essentially becomes an instance of the 're' class.
-match1.span() # Returns the index location span where the first occurence of the item occured in the string character array
-match1.start() # Returns the index position where the first occurrence of the searched-out item began
-match1.end() # Returns the index position where the first occurrence of the searched-out item ends
-match1.group() # Returns the item value you were searching for, in this case, 'mother'
+matchA = re.search(pattern, sample_text)  # This assigns the first occurrence of the searched out item properties to 'match1'. 'match1' essentially becomes an instance of the 're' class.
+matchA.span() # Returns the index location span where the first occurence of the item occured in the string character array
+matchA.start() # Returns the index position where the first occurrence of the searched-out item began
+matchA.end() # Returns the index position where the first occurrence of the searched-out item ends
+matchA.group() # Returns the item value you were searching for, in this case, 'mother'
 
 # If you want to for-instance, find all the times the particular item occurred, you can use:
-match2 = re.findall(pattern,sample_text) # This finds all the occurrences of the item in the sample_text, and organizes them as a list.
+matchB = re.findall(pattern,sample_text) # This finds all the occurrences of the item in the sample_text, and organizes them as a list.
+print(matchB)
 # In this case, match2 is not an instance of the 're' class. It is more like a generated list.
 
 # If you for-instance, want to loop through the occurrences -- This will especially come in handy when searching for phone numbers -- You can do:
@@ -1162,10 +1206,96 @@ pattern1 = r"\w{2,}@\w{2,}.\w{1,}" # Pattern, here, is a sequence of alphanumeri
 for items in re.finditer(pattern1, email_string):
     print(f"The email, {items.group()} was found in the text.")
  
+ 
+#------- Additional stuff -------------------
+find_text = re.search(r'boy|girl', 'The girl clapped and danced all day long') # This searches the text for any match for either 'boy' or 'girl'. A list is made from this.
+
+find_text = re.findall(r'.op', 'The mop was put on top of the table to open the dance.') # This searches for any word that has 'op' in it and extracts it till the end of 'op' based on the number of dots before 'op'. These dots are called wild-cards. A list is made from this.
+
+find_text = re.findall(r'[^\d]', 'There are 3 numbers inside 567, and 2 in 43') # This removes the digits (\d) from the text and extracts all other characters (including white spaces) to make a list of them.
+# To get a list of the actual strings (instead of characters), and without the numbers, it couls be done as:
+find_text = re.findall(r'[^\d]+', 'There are 3 numbers inside 567, and 2 in 43')
+# More examples:
+test_phrase = 'This is a string! But it has punctuation. How can we remove it?'
+pattern = r'[^\W]+' # Now we are trying to remove non-alphanumeric characters, but keep the strings
+clean = re.findall(pattern, test_phrase)
+print(clean) # A print-out of list containing only the words is gotten.
 
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
+
+
+
+
+
+
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+#*************************************************************************************************************************************************************************************************
+#                                                                             PYTHON FOR DATA-SCIENCE
+#**************************************************************************************************************************************************************************************************
+
+
+# The Numpy library is an important 'Linear ALgebra' library in Python. A lot of libraries depend on it and it has bindings to C libraries.
+# There are several methods available for use with the Numpy library. These methods would be visited.
+# You would notice that unlike lists, in Numpy arrays, values are not separated by a comma. They are just separated by spaces like in regular matrices.
+# Arrays, like lists, can hold different data-types.
+
+# ---------------------- Lists to Arrays --------------------
+# Numpy arrays may be vectors or matrices
+# A vector is a list of numbers which may be in one row or one column
+# A matrix is an array of numbers which may exist in one or more rows and one or more columns
+# Lists can be easily converted to arrays with the Numpy library
+import numpy as np
+
+matrix_list = [[1,2,3],[4,5,6],[7,8,9],[10,11,12]] # A 2D array defined in a single line list form
+two_D_Array = np.array(matrix_list) # Using the Numpy library to rearrange the list in array form - Like a matrix
+print(two_D_Array) # Prints out the matrix-like form of the 2D array -- Note that multiple array types can be worked with: 3D, 4D, etc. 
+
+# ------------------------ Some Numpy functionalities ------------------------------
+Numpy_range = np.arange(0,22,2) # Would create an array spanning from 0 to 22, with a step-size of 2. This array is assigned to 'Numpy_range' which becomes an instance of the numpy array
+
+
+Evenly_spaced_array = np.linspace(4,20,5) # Would create an array of 5 numbers spaced out equally between 4 and 20
+
+
+Matrix_of_zeros = np.zeros((4,6)) # Would create a matrix array of zero arranged in 4 rows and 6 columns. The array is assigned to 'Matrix_of_zeros'. If only one value is given, it would create a single row with columns equal to the initialized number. -- Interesting things can happen to created matrices by adding further initializations to the specified rows and columns
+
+
+Matrix_of_ones = np.ones((4,6)) # Similar to the matrix of zeros, but this time, for ones.
+
+
+Identity_matrix = np.eye(5) # Would create an 5x5 identity matrix -- You can force it to take two value initilizers **
+
+
+Random_0_1 = np.random.rand(3,3) # Would create a 3x3 matrix of random numbers between 0 and 1 -- Notice the dimensions were passed right in, instead of via a tuple.
+
+
+Gaussian_distribution = np.random.randn(5,6) # Random values in negative and positive for Gaussian curve created in a 5x6 matrix -- Notice the dimensions are also not passed in as tuples, here
+
+
+Random_integers = np.random.randint(1,49,6) # Would create an 6 number array of random integers from 1 to 48.
+Random_integers.max() # Returns the maximum value integer in the array
+Random_integers.argmax() # This specifies the particular index location where the first instance of the maximum integer value exists in the array
+Random_integers.min() # Returns the minimum value integer in the array
+Random_integers.argmin() # This specifies the particular index location where the first instance of the minimum integer value exists in the array
+Random_integers.mean() # Returns the average of the integer values in the array
+Random_integers.sort() # Sorts out the array from minimum value to the maximum value -- Just like is done with lists
+Random_integers.dtype # Attribute that returns the data type of the values in the array
+
+
+# With Numpy, you can re-shape already existing arrays in different ways. Such as taking a 1D array and reshaping it to look as a 2D array, as shown:
+range_val = np.arange(0,36) # I am creating a variable instance of the Numpy class and using the numpy range method to assign a range of values spanning 0 to 25 into it.
+range_val.shape # An attribute that returns the current shape of the vector - in-terms of rows and columns
+print(range_val)
+range_val.reshape(6,6) # By calling the 're-shape' method, I am able to take the values stored in 'range_val' and reshape into a 6x6 matrix. 
+range_val.shape # To return the current shape of the vector - in-terms of rows and columns
+print(range_val)
+# Note that, this would only work if the total values in the array equal the size of the matrix. for instance it would also work for a 12x3 matrice, since total size = 36
 
 
 
