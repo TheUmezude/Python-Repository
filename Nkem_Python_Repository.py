@@ -3,8 +3,6 @@ use triple apostrophes to indicate multi-line comments.
 """
 
 
-
-
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                           STRINGS
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1222,6 +1220,113 @@ clean = re.findall(pattern, test_phrase)
 print(clean) # A print-out of list containing only the words is gotten.
 
 
+
+#--------------------- Web-scraping with Python -------------------------------------
+import requests  # Library that allows page source information of webpages to be accessed.
+import bs4  # Beautiful soup library that allows information to be extracted from the webpage
+
+result = requests.get("http://example.com") # Assigning the variable, 'result' with the information gotten from the requests.get() method. The variable thus takes in all the class attributes.
+print(result.text) # Prints out the page source information from the accessed webpage
+
+soup = bs4.BeautifulSoup(result.text, "lxml") # Using the methods in the 'bs4' library, the source code gotten from requests can be passed in its text attribute with the '.BeautifulSoup()' method
+print(soup) # Prints out the source-code in a cleaned up way by 'beautiful soup'. 
+# NOTE: Now that the entire source code has been passed into the 'beautiful soup' class, we can extract specific items.
+print(soup.select('title')) # The 'select' method from the library, is used to print out the title of the webpage -- It prints it out along with the list view, and HTML information
+# Note that beautiful soup automatically creates a list of the items it extracts, in-case there are more than one.
+print(soup.select('p')) # To print out the items from within a paragraph -- It prints it out along with the list view, and HTML information
+print(soup.select('p')[0] # To print out paragraph contents -- without list view, but with HTML information
+Paragraph_content = print(soup.select('p')[0].getText()) # To assign the contents of the paragraph as a string to the 'Paragraph_content' variable -- without list view and the HTML information
+print(Paragraph_content)
+
+
+soup.getText('title') # Can be used to get all the HTML and CSS components associated with the tag sent in.
+soup.select('div') # To grab all elements that have the 'div' tag
+soup.select('#some_id') # To grab elements containing the id = 'some_id'
+soup.select('.some_class') # To grab Elements containing the class = 'some_class'
+soup.select('div_span') # To grab any elements named span within a div element
+soup.select('div> span') # To grab any elements named span directly within a div element, with nothing in between
+soup.clear() # To remove all the page source information from the variable.
+
+
+# Scraping Example 1: Scraping the table of contents & paragraph information from a wikipedia page
+import requests
+import bs4
+
+page_4_scrape = "https://en.wikipedia.org/wiki/Michael_Jackson" # Initializing the web address for the page to be scraped
+contents = requests.get(page_4_scrape)
+soup = bs4.BeautifulSoup(contents.text, "lxml")
+# To scrape out the Table of contents
+soup.select(".toctext") # The 'table of contents' are contained in the class name 'toctext'. hence'.toctext'. 
+for items in range(0, len(soup.select(".toctext"))): # I am looping through the entire 'table of contents' number entries.
+	print(soup.select(".toctext")[items].getText()) # I am printing out all the 'table of contents' entries. 'items' here ranges from 1 to the length of the 'table of contents'
+	
+# To scrape out the paragraph information
+soup.select("p") # Paragraph contents are contained within the <p> key in HTML 
+for items in range(0, len(soup.select("p"))):
+    print(soup.select("p")[items].getText())
+
+
+
+
+#-------------------------- Unicodes for emojis -----------------------------------------
+# Note that modules have to first be installed
+print("U+1F600") # For: grinning face
+print("U+1F603") # For: grinning face with big eyes
+print("U+1F604") # For: grinning face with smiling eyes
+print("U+1F601") # For: beaming face with smiling eyes
+print("U+1F606") # For: grinning squinting face
+print("U+1F605") # For: grinning face with sweat
+print("U+1F923") # For: rolling on the floor laughing
+print("U+1F602") # For: face with tears of joy
+print("U+1F642") # For: slightly smiling face
+print("U+1F643") # For: upside-down face
+print("U+1F609") # For: winking face
+print("U+1F60A") # For: smiling face with smiling eyes
+print("U+1F607") # For: smiling face with halo
+print("U+1F970") # For: smiling face with 3 hearts
+print("U+1F60D") # For: smiling face with heart-eyes
+print("U+1F929") # For: star-struck
+print("U+1F618") # For: face blowing a kiss
+print("U+1F617") # For: kissing face
+print("U+263A") # For: smiling face
+print("U+1F61A") # For: kissing face with closed eyes
+print("U+1F619") # For: kissing face with smiling eyes
+print("U+1F60B") # For: face savoring food
+print("U+1F61B") # For: face with tongue
+print("U+1F61C") # For: winking face with tongue
+print("U+1F92A") # For: zany face
+print("U+1F61D") # For: squinting face with tongue
+print("U+1F911") # For: money-mouth face
+print("U+1F917") # For: hugging face
+print("U+1F92D") # For: face with hand over mouth
+print("U+1F92B") # For: shushing face
+print("U+1F914") # For: thinking face
+print("U+1F910") # For: zipper-mouth face
+print("U+1F928") # For: face with raised eyebrow
+print("U+1F610") # For: neutral face
+print("U+1F611") # For: expressionless face
+print("U+1F636") # For: face without mouth
+print("U+1F60F") # For: smirking face
+print("U+1F612") # For: unamused face
+print("U+1F644") # For: face with rolling eyes
+print("U+1F62C") # For: grimacing face
+print("U+1F925") # For: lying face
+print("U+1F60C") # For: relieved face
+print("U+1F614") # For: pensive face
+print("U+1F62A") # For: sleepy face
+print("U+1F924") # For: drooling face
+print("U+1F634") # For: sleeping face
+print("U+1F637") # For: face with medical mask
+print("U+1F912") # For: face with thermometer
+print("U+1F915") # For: face with head-bandage
+print("U+1F922") # For: nauseated face
+
+# outside Unicode:
+import emoji 
+   
+print(emoji.emojize(":grinning_face_with_big_eyes:")) 
+print(emoji.emojize(":winking_face_with_tongue:")) 
+print(emoji.emojize(":zipper-mouth_face:")) 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
