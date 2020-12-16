@@ -3,6 +3,8 @@ use triple apostrophes to indicate multi-line comments.
 """
 
 
+
+
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                           STRINGS
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1248,7 +1250,7 @@ soup.select('div> span') # To grab any elements named span directly within a div
 soup.clear() # To remove all the page source information from the variable.
 
 
-# Scraping Example 1: Scraping the table of contents & paragraph information from a wikipedia page
+# Scraping Example 1: Scraping text items like - the table of contents & paragraph information from a wikipedia page
 import requests
 import bs4
 
@@ -1261,65 +1263,93 @@ for items in range(0, len(soup.select(".toctext"))): # I am looping through the 
 	print(soup.select(".toctext")[items].getText()) # I am printing out all the 'table of contents' entries. 'items' here ranges from 1 to the length of the 'table of contents'
 	
 # To scrape out the paragraph information
-soup.select("p") # Paragraph contents are contained within the <p> key in HTML 
+soup.select("p") # Paragraph contents are contained within the <p> element in HTML 
 for items in range(0, len(soup.select("p"))):
     print(soup.select("p")[items].getText())
+	
+	
+# Scraping Example 2: Scraping images from a website (wikipedia page)
+import requests
+import bs4
+
+page_4_scrape = "https://en.wikipedia.org/wiki/Deep_Blue_(chess_computer)"
+contents = requests.get(page_4_scrape)
+soup = bs4.BeautifulSoup(contents.text, "lxml")
+# It is important to know that images may be tagged using the 'img' keyword, but that may mean more than the target images being looked for. 
+# It is rather preferable to use the class tag for the specific image being targetted. For instance:
+for items in range(0, len(soup.select('.thumbimage'))): # The desired images in this webpage were contained in the 'thumbimage' class, hence, I specified the target with '.thumbinner'.
+    print(soup.select('.thumbimage')[items]) # This would print out all the information concerning the images in the specified class, 'thumbinner'
+    print("\n")
+# One of the images from this webpage would look as:
+# <img alt="" class="thumbimage" data-file-height="601" data-file-width="400" decoding="async" height="331" src="//upload.wikimedia.org/wikipedia/commons/thumb/b/be/Deep_Blue.jpg/220px-Deep_Blue.jpg" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/b/be/Deep_Blue.jpg/330px-Deep_Blue.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/b/be/Deep_Blue.jpg 2x" width="220"/>
+
+# To specifically get to the image being targetted, the target. In this case, the content that 'src' equals to, we can assign the entire image to a variable and treat it like a dictionary.
+image_01 = soup.select('.thumbimage')[0]
+print(image_01['src']) # 'src' points to the URL for the image being targetted, and prints it out as a string.
+# Print-out: '//upload.wikimedia.org/wikipedia/commons/thumb/b/be/Deep_Blue.jpg/220px-Deep_Blue.jpg'
+complete_img_url = 'https:' + image_01['src'] # Assigning the 'https:' tagline to the image in-order to avoid errors.
+image_file = requests.get(complete_img_url) # Requesting access to the image URL.
+image_file.content # Binary information of the image
+
+with open('C:\\Users\\Admin\\Desktop\\wikipedia_image.jpg', mode = 'wb') as myfile: # Creating the image on my desktop. 
+    #NOTE: 'wb' - write binary is used to process the binary information of the image so it can be created. 
+    myfile.write(image_file.content)
 
 
 
 
 #-------------------------- Unicodes for emojis -----------------------------------------
 # Note that modules have to first be installed
-print("U+1F600") # For: grinning face
-print("U+1F603") # For: grinning face with big eyes
-print("U+1F604") # For: grinning face with smiling eyes
-print("U+1F601") # For: beaming face with smiling eyes
-print("U+1F606") # For: grinning squinting face
-print("U+1F605") # For: grinning face with sweat
-print("U+1F923") # For: rolling on the floor laughing
-print("U+1F602") # For: face with tears of joy
-print("U+1F642") # For: slightly smiling face
-print("U+1F643") # For: upside-down face
-print("U+1F609") # For: winking face
-print("U+1F60A") # For: smiling face with smiling eyes
-print("U+1F607") # For: smiling face with halo
-print("U+1F970") # For: smiling face with 3 hearts
-print("U+1F60D") # For: smiling face with heart-eyes
-print("U+1F929") # For: star-struck
-print("U+1F618") # For: face blowing a kiss
-print("U+1F617") # For: kissing face
-print("U+263A") # For: smiling face
-print("U+1F61A") # For: kissing face with closed eyes
-print("U+1F619") # For: kissing face with smiling eyes
-print("U+1F60B") # For: face savoring food
-print("U+1F61B") # For: face with tongue
-print("U+1F61C") # For: winking face with tongue
-print("U+1F92A") # For: zany face
-print("U+1F61D") # For: squinting face with tongue
-print("U+1F911") # For: money-mouth face
-print("U+1F917") # For: hugging face
-print("U+1F92D") # For: face with hand over mouth
-print("U+1F92B") # For: shushing face
-print("U+1F914") # For: thinking face
-print("U+1F910") # For: zipper-mouth face
-print("U+1F928") # For: face with raised eyebrow
-print("U+1F610") # For: neutral face
-print("U+1F611") # For: expressionless face
-print("U+1F636") # For: face without mouth
-print("U+1F60F") # For: smirking face
-print("U+1F612") # For: unamused face
-print("U+1F644") # For: face with rolling eyes
-print("U+1F62C") # For: grimacing face
-print("U+1F925") # For: lying face
-print("U+1F60C") # For: relieved face
-print("U+1F614") # For: pensive face
-print("U+1F62A") # For: sleepy face
-print("U+1F924") # For: drooling face
-print("U+1F634") # For: sleeping face
-print("U+1F637") # For: face with medical mask
-print("U+1F912") # For: face with thermometer
-print("U+1F915") # For: face with head-bandage
-print("U+1F922") # For: nauseated face
+print("\U0001F600") # For: grinning face
+print("\U0001F603") # For: grinning face with big eyes
+print("\U0001F604") # For: grinning face with smiling eyes
+print("\U0001F601") # For: beaming face with smiling eyes
+print("\U0001F606") # For: grinning squinting face
+print("\U0001F605") # For: grinning face with sweat
+print("\U0001F923") # For: rolling on the floor laughing
+print("\U0001F602") # For: face with tears of joy
+print("\U0001F642") # For: slightly smiling face
+print("\U0001F643") # For: upside-down face
+print("\U0001F609") # For: winking face
+print("\U0001F60A") # For: smiling face with smiling eyes
+print("\U0001F607") # For: smiling face with halo
+print("\U0001F970") # For: smiling face with 3 hearts
+print("\U0001F60D") # For: smiling face with heart-eyes
+print("\U0001F929") # For: star-struck
+print("\U0001F618") # For: face blowing a kiss
+print("\U0001F617") # For: kissing face
+print("\U000263A") # For: smiling face
+print("\U0001F61A") # For: kissing face with closed eyes
+print("\U0001F619") # For: kissing face with smiling eyes
+print("\U0001F60B") # For: face savoring food
+print("\U0001F61B") # For: face with tongue
+print("\U0001F61C") # For: winking face with tongue
+print("\U0001F92A") # For: zany face
+print("\U0001F61D") # For: squinting face with tongue
+print("\U0001F911") # For: money-mouth face
+print("\U0001F917") # For: hugging face
+print("\U0001F92D") # For: face with hand over mouth
+print("\U0001F92B") # For: shushing face
+print("\U0001F914") # For: thinking face
+print("\U0001F910") # For: zipper-mouth face
+print("\U0001F928") # For: face with raised eyebrow
+print("\U0001F610") # For: neutral face
+print("\U0001F611") # For: expressionless face
+print("\U0001F636") # For: face without mouth
+print("\U0001F60F") # For: smirking face
+print("\U0001F612") # For: unamused face
+print("\U0001F644") # For: face with rolling eyes
+print("\U0001F62C") # For: grimacing face
+print("\U0001F925") # For: lying face
+print("\U0001F60C") # For: relieved face
+print("\U0001F614") # For: pensive face
+print("\U0001F62A") # For: sleepy face
+print("\U0001F924") # For: drooling face
+print("\U0001F634") # For: sleeping face
+print("\U0001F637") # For: face with medical mask
+print("\U0001F912") # For: face with thermometer
+print("\U0001F915") # For: face with head-bandage
+print("\U0001F922") # For: nauseated face
 
 # outside Unicode:
 import emoji 
