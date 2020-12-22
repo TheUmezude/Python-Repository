@@ -1224,6 +1224,8 @@ print(clean) # A print-out of list containing only the words is gotten.
 
 
 #--------------------- Web-scraping with Python -------------------------------------
+# Note that a code you may write to scrape information off a website may need to be updated even for the same website -- as website source code may change
+
 import requests  # Library that allows page source information of webpages to be accessed.
 import bs4  # Beautiful soup library that allows information to be extracted from the webpage
 
@@ -1231,6 +1233,7 @@ result = requests.get("http://example.com") # Assigning the variable, 'result' w
 print(result.text) # Prints out the page source information from the accessed webpage
 
 soup = bs4.BeautifulSoup(result.text, "lxml") # Using the methods in the 'bs4' library, the source code gotten from requests can be passed in its text attribute with the '.BeautifulSoup()' method
+# Note that 'lxml' is the engine used to decode the information being obtained from the 'result.text' method.
 print(soup) # Prints out the source-code in a cleaned up way by 'beautiful soup'. 
 # NOTE: Now that the entire source code has been passed into the 'beautiful soup' class, we can extract specific items.
 print(soup.select('title')) # The 'select' method from the library, is used to print out the title of the webpage -- It prints it out along with the list view, and HTML information
@@ -1250,22 +1253,27 @@ soup.select('div> span') # To grab any elements named span directly within a div
 soup.clear() # To remove all the page source information from the variable.
 
 
+
+
 # Scraping Example 1: Scraping text items like - the table of contents & paragraph information from a wikipedia page
 import requests
 import bs4
 
-page_4_scrape = "https://en.wikipedia.org/wiki/Michael_Jackson" # Initializing the web address for the page to be scraped
+page_4_scrape = "https://en.wikipedia.org/wiki/Michael_Jackson" # Initializing the web address for the page to be scraped - 'http' or 'https' associated with page must always be included.
 contents = requests.get(page_4_scrape)
 soup = bs4.BeautifulSoup(contents.text, "lxml")
 # To scrape out the Table of contents
 soup.select(".toctext") # The 'table of contents' are contained in the class name 'toctext'. hence'.toctext'. 
 for items in range(0, len(soup.select(".toctext"))): # I am looping through the entire 'table of contents' number entries.
+	# not that 'soup.select(".toctext")' returns a list of whatever items it finds.
 	print(soup.select(".toctext")[items].getText()) # I am printing out all the 'table of contents' entries. 'items' here ranges from 1 to the length of the 'table of contents'
 	
 # To scrape out the paragraph information
 soup.select("p") # Paragraph contents are contained within the <p> element in HTML 
 for items in range(0, len(soup.select("p"))):
     print(soup.select("p")[items].getText())
+	
+	
 	
 	
 # Scraping Example 2: Scraping images from a website (wikipedia page)
@@ -1294,6 +1302,106 @@ image_file.content # Binary information of the image
 with open('C:\\Users\\Admin\\Desktop\\wikipedia_image.jpg', mode = 'wb') as myfile: # Creating the image on my desktop. 
     #NOTE: 'wb' - write binary is used to process the binary information of the image so it can be created. 
     myfile.write(image_file.content)
+
+
+
+
+# Scraping Example 3: Scraping information from multiple pages of a website -- such as a website catalog of books for sale -- Here we know the total number of pages.
+
+# In this example, one-star rated books from an entire book catalogue are analyzed and their titles are printed out.
+import requests
+import bs4
+
+page_4_scrape = "https://books.toscrape.com/catalogue/page-{}.html" # For this example, a pro-scraping webpage with fake book catalogues that spans up to 50 pages is used.
+# Each new catalogue page differs from the other by a number next to the hyphen after '...page'; as in '...page-1' for page 1, '...page-2' for page 2, etc.
+product_list = []
+page_no = 1
+# Here we know the total number of pages is 50
+while page_no < 51: # Since we know the total number of pages for the website, we increment 'page_no' from 1 to 50 (i.e less than 51)
+    contents = requests.get(page_4_scrape.format(page_no)) # Here, we start initializing the information in each page to the contents variable -- going from page 1 up to 50
+    soup = bs4.BeautifulSoup(contents.text, "lxml") # Here, we start decoding the information from the contents variable with 'Beautiful soup' -- going from page 1 up to 50
+    for items in range(0, len(soup.select('.product_pod'))): 
+        product_list.append(soup.select('.product_pod')[items]) # Here, we start appending decoded information under class 'product_pod' to the empty list 'product_list' -- from page 1 up to 50
+		# Note that product_list contains all the HTML information of the books of interest.
+        for items in product_list: # Looping through all the items now in the list 'product_list'
+		# Note that now items would equal the individual instances of the 'soup.select('.product_pod')' method.
+            if items.select('.star-rating.One'): # Here, we start checking if there is such a class named '.star-rating One' in the list called 'product_list'
+                print(items.select('a')[1]['title']) # Here, we look through all the one star rated items, and extract the titles from them. 
+				# 'a' is the HTML tag with information about the book image and title. 
+                print("\n")
+    page_no += 1 # With this, all the titles of the books with 1 star rating would be printed out.
+	
+# An important thing to note here is that items of type; 'bs4.element.Tag' can be treated as dictionaries, where information after a variable name with an equal sign can be extracted.
+
+
+
+
+# Scraping Example 4: Scraping author information from a webpage of quotes: 'https://quotes.toscrape.com/' -- Here we do not know the total number of pages.
+import requests
+import bs4
+
+count = 1 # The count variable is initialized with 1, since we expect the webpage to start counting from page 1
+author_list = []
+author_set = {}
+search = True # We initialize the search variable to true, so that the code keeps scraping until search becomes false.
+
+page_4_scrape = "https://quotes.toscrape.com/page/{}/" # Here we do not know the total number of pages associated with the website, but we know the pages differ from one another
+# We use the curly braces and '.format()' method to allow the page to change; for page 1, {} is replaced by 1, for page 2, {} is replaced by 2, and on and on.
+
+while search == True:
+    contents = requests.get(page_4_scrape.format(str(count))) # Here, we start initializing the information in each page to the contents variable -- going from page 1 till we are forced to stop
+    soup = bs4.BeautifulSoup(contents.text, "lxml") # Here, we start decoding the information from the contents variable with 'Beautiful soup' -- going from page 1 till we are forced to stop
+    for items in range(0, len(soup.select('.author'))): # Author information is found in the 'author' class for each page.
+        author_list.append(soup.select('.author')[items].getText()) # We append the author information for each page into the list, 'author_list'
+        
+    if 'No quotes found!' in contents.text: # On pages which exted beyond the available pages, in this example, we see the statement 'No quotes found!', so we use that to control the loop.
+        search = False       
+    else:
+        search = True
+        
+    count = count + 1
+    
+author_set = set(author_list) # We make a set of all the author names found so that we can get out only the unique author information.
+for item1 in author_set:
+    print(item1)
+
+
+
+
+
+
+#---------------------------------------------- Working with images in Python ----------------------------------------------------------
+# The Pillow library is a fork of the PIL (Python Imaging Library) with easy to use function calls.
+# Documentation for the library can be found here: pillow.readthe docs.io
+from PIL import Image    # To use the 'pillow' library, you still have to call 'PIL' -- It can be called in this way.
+photo1 = Image.open('C:\\Users\\Admin\\Desktop\\Random images\\1.jpg')
+photo1.show() # This can be used to call the photo to be displayed.
+
+photo2 = photo1.crop((530,100,1000,740)) # I am creating a new image, photo2, that is essentially a cropped version of the first impage, photo1.
+photo1.paste(im=photo2, box=(0,0)) # I am pasting the new image, photo2, into the original image, photo1 with its 0,0 point coincident with the 0,0 point of photo1.
+# Note that whatever changes you make would permanently affect the variable, allbeit not permanently affecting the original image.
+
+# Image formats usually exist as 'RGBA' formats, where R = Red, G = Green, B = Blue and A = Transparency. 
+# Each of these go from 0 to 255 with 0 meaning a complete absence (in case of R, G and B values), and 255 meaning complete presence (in case of R, G and B values)
+# For A, i.e 'Alpha', 0 means complete transparency of the image, 255 means complete opacity of the image.
+
+# Important attributes with images
+.size # to show the size of the image in pixels
+.filename # To get the file name of the image -- with the path
+.format_description # To get the format of the image
+.crop((left, upper, right, lower pixel)) # (x,y,width,height) -- To crop the photo accourding to the entered dimensions in pixel value -- imagine it moving clockwise
+.resize((pixel_dimension1, pixel_dimension2)) # To stretch or squeeze the image to new dimensions
+.rotate(degree) # To rotate the image to whatever degree value that was specified.
+.putalpha(value) # To adjust the transparency level of the image from completely transparent 0 value to completely opaque 255 value.
+.getpixel((dimension1,dimension2)) # Returns the pixel value at the specified point in an image.
+.putpixel((dimension1, dimension2),(R_value,G_value,B_value,A_value)) # Allows you to adjust the RGB values of a photo at the indicated dimensions (x,y).
+.save(file path) # Saves the image variable as a new image in the specified file-path or with the specified name.
+
+
+
+
+
+
 
 
 
