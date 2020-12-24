@@ -1,7 +1,3 @@
-"""
-use triple apostrophes to indicate multi-line comments.
-"""
-
 
 
 
@@ -93,27 +89,27 @@ with open('C:\\Users\\Admin\\Desktop\\email.txt') as myfile:
     contents = myfile.readlines()
 	print(contents)
 	
-with open('C:\\Users\\Admin\\Desktop\\email.txt', mode ='r') as myfile:
+with open('C:\\Users\\Admin\\Desktop\\email.txt', mode ='r', encoding = 'utf-8') as myfile: #The encoding engine I added here is to allow python read non-English characters from the text file
     contents = myfile.readlines()
 	print(contents)
 ############################
 
 
 ##Opening and overwriting files
-with open('C:\\Users\\Admin\\Desktop\\email.txt', mode = 'w') as myfile:
+with open('C:\\Users\\Admin\\Desktop\\email.txt', mode = 'w', encoding = 'utf-8') as myfile: #The encoding engine I added here is to allow python write non-English characters into the text file
     myfile.write('\nHello')
 	
 ##Opening and adding to files
-with open('C:\\Users\\Admin\\Desktop\\email.txt', mode = 'a') as myfile:
+with open('C:\\Users\\Admin\\Desktop\\email.txt', mode = 'a', encoding = 'utf-8') as myfile: #The encoding engine I added here is to allow python append non-English characters into the text file
     myfile.write('\nInteresting')
 	
 
 ##Opening and reading and writing to files
-with open('C:\\Users\\Admin\\Desktop\\email.txt', mode = 'r+') as myfile:
+with open('C:\\Users\\Admin\\Desktop\\email.txt', mode = 'r+', encoding = 'utf-8') as myfile: #The encoding engine I added here is to allow python read/write non-English characters from/into the text file
     contents = myfile.readlines()
 	
 ##Opening and overwriting and reading files
-with open('C:\\Users\\Admin\\Desktop\\email.txt', mode = 'w+') as myfile:
+with open('C:\\Users\\Admin\\Desktop\\email.txt', mode = 'w+', encoding = 'utf-8') as myfile: #The encoding engine I added here is to allow python write/read non-English characters to/from the text file
     contents = myfile.readlines()
 	
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
@@ -1396,6 +1392,105 @@ photo1.paste(im=photo2, box=(0,0)) # I am pasting the new image, photo2, into th
 .getpixel((dimension1,dimension2)) # Returns the pixel value at the specified point in an image.
 .putpixel((dimension1, dimension2),(R_value,G_value,B_value,A_value)) # Allows you to adjust the RGB values of a photo at the indicated dimensions (x,y).
 .save(file path) # Saves the image variable as a new image in the specified file-path or with the specified name.
+
+
+
+
+#---------------------------------------------- Working with CSV in Python ----------------------------------------------------------
+# .csv files, can be gotten out of regular spreadsheet files, like excel spreadsheet files, however, .csv would only contain the raw data from the spreadsheet.
+# Things like images, formulas, etc., cannot be contained in a .csv file
+# Pandas library allows for extensive data science applications, inclusive of .csv manipulation
+# Openpyxl library is another module for manipulating excel related files and documents
+# Google sheets Python API
+import csv  # Library that allows you work with .csv files, asides the already aforementioned.
+
+working_sheet = 'C:\\Users\\Admin\\Desktop\\Randoms\\Random SpreadSheets\\example.csv'  # Initializing the variable, 'working_sheet' with the file-path for the file we intend to work with.
+contained_data = open(working_sheet, encoding='utf-8') # Initializing the variable, 'contained_data' to be the read value of the information in the file-path variable.
+# Note that a peculiar encoding engine was chosen for this case, i.e 'utf-8'. Other encoding engines exist -- all dependent on the type of data you want to work with.
+csv_data = csv.reader(contained_data) # Using the reader method in the csv library to make sense of the data and send the results into the variable, 'csv_data'
+data_lines = list(csv_data) # Type casting the data in the 'csv_data' variable into a much easier manipulable list form.
+
+# More cleanly put -- especially so you don't need to remember to close the file later on:
+with open(working_sheet, encoding = 'utf-8') as myfile:
+    csv_data = csv.reader(myfile)
+    data_lines = list(csv_data)  # Now the list called 'data_lines' has all the information concerning the data that was mined with the csv library.
+	
+len(data_lines) # To give information concerning the length of rows in the .csv file.
+
+
+# CSV Example 3: Reading a '.csv' file and entering the information into a '.txt' file -- The '.csv' file, here, has data arranged in 7 columns and 1000 rows:
+import csv
+
+working_sheet = 'C:\\Users\\Admin\\Desktop\\Randoms\\Random SpreadSheets\\example.csv' # Initializing the variable, 'working_sheet' with the file-path for the file we intend to work with.
+
+with open(working_sheet, encoding = 'utf-8') as datafile: # Opening the '.csv' file with the 'utf-8' encoding to allow non-English text to be read.
+    csv_data = csv.reader(datafile)
+    data_lines = list(csv_data) # Creating a list of the data read from the '.csv' file
+	
+with open('C:\\Users\\Admin\\Desktop\\Randoms\\Random SpreadSheets\\example.txt', mode = 'w', encoding = 'utf-8') as myfile: 
+# Opening the '.txt' file with the 'utf-8' encoding to allow non-English text to be written.
+    for items in range(1, len(data_lines)): # Looping through the entire length of the list to extract information
+        myfile.write(f'Currently decoding line: {items} \n')
+        myfile.write(f'{data_lines[0][0]}: {data_lines[items][0]} \n') # Organizing by columns 
+        myfile.write(f'{data_lines[0][1]}: {data_lines[items][1]} \n') # Organizing by columns
+        myfile.write(f'{data_lines[0][2]}: {data_lines[items][2]} \n') # Organizing by columns
+        myfile.write(f'{data_lines[0][3]}: {data_lines[items][3]} \n') # Organizing by columns
+        myfile.write(f'{data_lines[0][4]}: {data_lines[items][4]} \n') # Organizing by columns
+        myfile.write(f'{data_lines[0][5]}: {data_lines[items][5]} \n') # Organizing by columns
+        myfile.write(f'{data_lines[0][6]}: {data_lines[items][6]} \n') # Organizing by columns
+        myfile.write("\n\n")
+
+
+# CSV Example 4: Writing to a '.csv' file directly from a list:
+import csv
+
+sheet_to_read = 'C:\\Users\\Admin\\Desktop\\Randoms\\Random SpreadSheets\\makeup_new.csv'
+
+with open(sheet_to_read, mode= 'w', encoding = 'utf-8', newline='') as datafile:
+    csv_data = csv.writer(datafile, delimiter=',') 
+	# The 'delimiter' here, is just to let Python know how the items were separated in-order for Python to read the files -- Separations can be with anything, not just commas.
+    csv_data.writerow(['a','b','c']) # In-case you just want to write a row at a time. May be useful, especially if parsing from a list
+    csv_data.writerows([['1','2','3'],['4','5','6']]) # Always note that to indicate multiple rows, a 2-D array has to be passed in.
+	
+	
+	
+
+#---------------------------------------------- Working with PDFs in Python ----------------------------------------------------------
+# Unlike '.csv' files, some PDF files are not readable by Python -- Unless with advanced ML methods.
+# Unreadable PDF files include PDFs generated by scanning documents - Scanned documents are essentially like pictures.
+
+# Reading into PDFs ------------------------------------------------------------------
+import PyPDF2 # Import the library that allows for analysis of the PDF document
+
+PDF_to_read = 'C:\\Users\\Admin\\Desktop\\Randoms\\Random PDFs\\Some_BrandNew_Doc.pdf' # Initializing the variable, 'PDF_to_read' with the file-path for the PDF we intend to work with.
+
+with open(PDF_to_read, mode='rb') as myfile: # PDF files are read in binary form - just like images being scraped off a website. 
+# There is also no encoding since it is being read in binary form.
+    pdf_data = PyPDF2.PdfFileReader(myfile)
+    print(pdf_data.numPages) # To determine the number of pages in the PDF -- returns the page number as an interger.
+	
+	page_one = pdf_data.getPage(0) # To read the items in the first page of the PDF file, we take the variable containing the PDF data and use the 'getPage()' method. 
+	# 0 here indicates first page. So now, the data in page 1 is stored in the variable 'page_one'
+    page_one_text = page_one.extractText()
+	# The PDF page 1 data in the 'page_one' variable is extracted with the 'extractText()' method.
+    print(page_one_text) # The extracted text from page 1 of the PDF is printed to screen.
+	
+# Overwriting PDFs ----------------------------------------------------------------------
+import PyPDF2
+
+PDF_to_read = 'C:\\Users\\Admin\\Desktop\\Randoms\\Random PDFs\\Some_BrandNew_Doc.pdf' # We would be taking the contents from the first page of this PDF document
+PDF_to_write = 'C:\\Users\\Admin\\Desktop\\Randoms\\Random PDFs\\Some_New_Doc.pdf' # We would be replacing the contents of this entire PDF document
+
+with open(PDF_to_read, mode='rb') as myfile: # Reading the contents of the first PDF
+    pdf_data = PyPDF2.PdfFileReader(myfile) # Reading method is called off this instance
+
+    first_page = pdf_data.getPage(0)
+
+    write_pdf = PyPDF2.PdfFileWriter() # Writing method is called off this instance
+    write_pdf.addPage(first_page)
+
+    with open(PDF_to_write, mode='wb') as newfile: # Overwriting the contents of the first PDF
+        write_pdf.write(newfile)
 
 
 
