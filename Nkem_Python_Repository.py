@@ -41,7 +41,6 @@ print("The result was {r:1.3f}".format(r = result))
 # Print out would be: 'The result was 0.129'
 # Note, that the width indicates how much white spaces before and with the value, precision indicates how you want it rounded up.
 
-
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
