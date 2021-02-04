@@ -1,45 +1,63 @@
+Python_documentation = docs.python.org
 
-
+'''
+Docstring comment
+'''
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                           STRINGS
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # 'Strings' are more or less just an ordered and immutable array of characters.
+# A string multiplied by a number would give several occurrences of said string together -- A sample is shown below:
+mystring = 'z'
+mystring = mystring * 10
+print(mystring) # The print-out of this would be 10 z: zzzzzzzzzz
+# NOTE also that you cannot concatenate strings with non-strings.
 
 # Important methods to use with strings
 .capitalize() # this capitalizes the first letter in a string -- irrespective if there are multiple full-stops, ONLY the first letter would be capitalized
-.casefold() # this makes the entire characters in the string lower-case **?
+.casefold() # this makes the entire characters in the string lower-case **? -- Used for caseless matching
 .count(string/character) # to count the number of times a particular string or character occurred in the string 
+.find(string/character) # Finds the index location for the first occurrence of the string or character.
 .endswith(string/character) # returns 'True' or 'False', depending on if the string ends with the character or string you passed into the method
+.startswith(string/character) # returns 'True' or 'False', depending on if the string starts with the character or string you passed into the method
 .find(string/character, occurrence) # to find the index that a particular string or character occurred for the specified occurrence (like 2 for 2nd occurrence)
 .lower() # to convert the characters in the string to lower-case
 .upper() # to convert the characters in the string to upper-case
-.islower() # returns 'True' if the characters in the string are lower-case, and 'False' if the characters in the string are not lower-case
+.islower() # returns 'True' if all the characters in the string are lower-case, and 'False' if the characters in the string are not lower-case
 .isupper() # returns 'True' if the characters in the string are upper-case, and 'False' if the characters in the string are not upper-case
 .isalpha() # returns 'True' if the contents of the string are all alphabets and 'False' if they aren't -- Note that it identifies spaces and punctuations as non-alphabets
 .isdigit() # returns 'True' if the contents of the string are integers and 'False' if they are not integers (floats are not integers)
+.isalnum() # returns 'True' if the contents of the string are alphanumeric
+.isspace() # returns 'True' if all the characters in the string are white spaces.
 .title() # Capitalizes the first letter of every word
 .istitle() # returns 'True' if the first letter of every word of the string is upper-case, and 'False' if not.
 .split(string/character) # returns a list of the words separated by the spaces from a string -- if a character or string is initialized, it returns splitting at that string word or character
+.partition(string/character) # splits the string at only the first occurrence of the initialized string or character -- unlike split, it still returns the initialized character/string
+s.center(20,'z') # To center the string 's' between 'z' characters and for a length of 20.
 
 
 #String Interpolations
 
-#using the '.format' method
-print ("The {q} {b} {f}".format(q = "quick", f = "fox", b = "brown"))
+#using the '.format' method with indexing.
+print ("The {0} {2} {1}".format("quick", "fox", "brown")) # Result: The quick brown fox
+
+#using the '.format' method with keywords.
+print ("The {q} {b} {f}".format(q = "quick", f = "fox", b = "brown")) # Result: The quick brown fox
 
 #Using the F-string method
 q = quick
 b = brown
 f = fox
-print(f"The {q} {b} {f})
+print(f"The {q} {b} {f}")
 
 # The '.format' method can also be used for float formatting, such as in example---
 result = 100/777  # originally, that result would be: 0.1287001287001287
 # However, if I wantto print to format the result (like rounding it up), and print to screen, I could use the '.format' method and specify width & precision. using format {value:width.precision f} Like so ---
 print("The result was {r:1.3f}".format(r = result))
 # Print out would be: 'The result was 0.129'
-# Note, that the width indicates how much white spaces before and with the value, precision indicates how you want it rounded up.
+# Note, that the width (1) indicates how much white spaces before and with the value, precision (3)indicates how you want it rounded up.
+
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -54,7 +72,7 @@ print("The result was {r:1.3f}".format(r = result))
 
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#                                             COMPARISON OPERATORS
+#                                             BOOLEAN, COMPARISON AND LOGICAL OPERATORS
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 True and False ----> False
 False and True ----> False
@@ -65,6 +83,19 @@ True or False ----> True
 True or True ----> True
 False or True ----> True
 False or False ----> False
+
+## Comparisons:
+== # Check if equal
+!= # Check if not equal
+> # Check if greater than
+< # Check if less than
+>= # Check if greater than or equal to
+<= # Check if lesser than or equal to
+
+## Logical Operators:
+and # The two conditions must be true, if not it returns false
+or # At-least one of the conditions must be tru for it to return true
+not # should not occur
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -81,20 +112,22 @@ False or False ----> False
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                                            .TXT FILE MANIPULATION
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+pwd # To print current working directory.
 
 ##Opening and reading files
-with open('C:\\Users\\Admin\\Desktop\\email.txt') as myfile:
+with open('C:\\Users\\Admin\\Desktop\\email.txt') as myfile: # More functionality can be found with using SHIFT + TAB on Jupyter Notebook.
 	myfile.seek(0) # To return the cursor to the beginning point of the file
-    contents = myfile.readlines()
-	print(contents)
+	contents = myfile.read() # To read the entire file as a single line -- not the best
+    contents = myfile.readlines() # contents becomes a list with each element equaling the first line from the text file.
+print(contents)
 	
 with open('C:\\Users\\Admin\\Desktop\\email.txt', mode ='r', encoding = 'utf-8') as myfile: #The encoding engine I added here is to allow python read non-English characters from the text file
     contents = myfile.readlines()
-	print(contents)
+print(contents)
 ############################
 
 
-##Opening and overwriting files
+##Opening and overwriting files -- Creates the file if the file initially doesn't exist.
 with open('C:\\Users\\Admin\\Desktop\\email.txt', mode = 'w', encoding = 'utf-8') as myfile: #The encoding engine I added here is to allow python write non-English characters into the text file
     myfile.write('\nHello')
 	
@@ -107,7 +140,7 @@ with open('C:\\Users\\Admin\\Desktop\\email.txt', mode = 'a', encoding = 'utf-8'
 with open('C:\\Users\\Admin\\Desktop\\email.txt', mode = 'r+', encoding = 'utf-8') as myfile: #The encoding engine I added here is to allow python read/write non-English characters from/into the text file
     contents = myfile.readlines()
 	
-##Opening and overwriting and reading files
+##Opening and overwriting and reading files -- Creates the file if the file initially doesn't exist
 with open('C:\\Users\\Admin\\Desktop\\email.txt', mode = 'w+', encoding = 'utf-8') as myfile: #The encoding engine I added here is to allow python write/read non-English characters to/from the text file
     contents = myfile.readlines()
 	
@@ -152,6 +185,7 @@ print(item_price['Apple']) ---- print(item_price['Mango']) ----- print(item_pric
 # You can also assign a new key into your dictionary on the go by doing something like
 item_price['Lemon'] = 0.25
 print(item_price)
+# Existing key-value pairs may also be overriden in the same manner.
 
 # Grabbing the keys out
 print(item_price.keys())   #Note that the keys in a dictionary must always be a string!
@@ -165,7 +199,49 @@ item_price = ['Apple':{'Mexican': 1.99, 'Canadian': 2.29}, 'Orange': [0.26, 0.44
 print(item_price['Apple']['Canadian'])
 print(item_price['Orange'][0]
 
+#NOTE that you can use 'Tuple unpacking' with dictionaries -- Sample shown below:
+my_dict = {'k1':1, 'k2':2, 'k3':3}
 
+for items in my_dict:
+	print(items) # This prints out just the keys of the dictionary, whereas, if tuple unpacking (as shown below) is used:
+	
+for item1, item2 in my_dict.items():
+	print(f"Key: {item1}") # Printing out from the keys
+	print(f"Value: {item2}") # Printing out from the values
+	
+for items in my_dict.items():
+	print(items) # Printing out the key-value pairs as individual tuples.
+	
+# Note that you can use the 'in' keyword to check if particular items exist in a dictionary.
+
+# You can assign the keys, values or even items form a dictionary to an arbitrary variable. For instance:
+key_variable = list(my_dict.keys())
+value_variable = list(mydict.values())
+nested_items = list(mydict.items())
+
+
+# Dictionary comprehension example - Note that this is a big example, with concepts that would be discussed further down the line (like functions, lists, tuples):
+users = [
+    (0, "Bob", "bob123"),
+    (1, "Rolf", "password"),
+    (2, "Jose", "hbhefepass"),
+    (3, "Michael", "forlive23")
+] # A list with nested tuples containing information for users (ID number, name and password)
+
+username_mapping = {item[1]: item for item in users} # Attempting to create a key-value pair for the user and user information from the nested list.
+# Now, each tuple would be a value in the 'username_mapping' dictionary where the names (such as "Bob", "Rolf", etc.) would be the keys. For instance:
+print(username_mapping['Rolf']) # This prints out the contents of the tuple where 'Rolf' is the name.
+# You may then decide to write a function that takes in input for username and password, and checks to see if it exists in the database. Such as:
+def sign_check(username, password, data):
+    if username in data.keys() and password == data[username][2]:
+        print(f"Welcome to your account, {username}")
+    else:
+        print(f"Sorry, I cannot recognize the username: {username}")
+		
+sign_name = input("Please enter your username: ")
+sign_pass = input("Please enter your password: ")
+
+sign_check(sign_name, sign_pass, username_mapping)
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	
 	
@@ -219,24 +295,36 @@ print(List_ADD)
 # List_ADD would be = [1,2,3,4,9,8,7,6]
 
 
+# Important information concerning tuples
+x = 1,2,3 # Python seeing a comma or set of commas between values/items, automatically designates the variable as a type of tuple
+x = (5,) # Even when defining a tuple with a single value, Python needs you to put a comma after the value so it doesn't designate it as a variable with brackets like BODMAS.
+# Tuple methods 
+.count(item) # to count the number of times a given item occured in a tuple -- if the item isn't there, it returns 0.
+.index(item) # to determine the index of an item  for the first time it appears in the tuple.
+
+
 # Important methods to use with lists
 .append() # to add one new item to end of list
 .pop(index) # to remove an item from end of list or indicated index
 .extend(list) # to add the contents of one list into a new list 
 .clear() # to remove all the items in a list
-.count(item) # to count the number of times a given item occured in a list
-.index(index) # to determine the item at a particular index in the list
+.count(item) # to count the number of times a given item occured in a list -- if the item isn't there, it returns 0.
+.index(item) # to determine the index of an item  for the first time it appears in the list
 .reverse() # to reverse the arrangement of items in a list
 .remove(item) # to remove the first occurrence of an item in a list
 .copy() # to return the contents of a list as an assignment to a new list variable
-.insert(index, value) # to insert a value into a particular index location in a list 
+.insert(index, value) # to insert a value into a particular index location in a list
+.sort() # To sort the contents of your list in place. 
 
 
+## Sets are unordered collections of unique items.
+# Note that elements in a set cannot be accessed by indexing, like lists and tuples.
 # Important methods to use with sets
 .add() # to add one new item to end of set
 .pop(index) # to remove an item from the beginning of the set or indicated index
 .clear() # to remove all the items in a set
-.copy() # to return the contents of a set as an assignment to a new set variable
+.copy() # to return the contents of a set as an assignment to a new set variable -- future modification to the original set is not translated to the new set.
+.discard(element) # To remove the initialized element from the set -- if not in set, nothing happens.
 myset.intersection(another_set) # To return only the contents that are in both 'myset' and 'another_set'
 myset.intersection_update(another_set) # To overwrite the contents of 'myset' with the elements that are both in 'myset' and 'another_set'
 myset.union(another_set) # To unify the contents in 'myset' with the contents in 'another_set' and return the aggregate
@@ -244,8 +332,8 @@ myset.difference(another_set) # To return the elements in 'myset' that are not i
 myset.difference_update(another_set) # To overwrite the contents of 'myset' with elements that are in 'myset' but are not in 'another_set'
 myset.issubset(another_set) # Returns 'True' if 'myset' is a subset of 'another_set' or 'False' if 'myset' is not a subset of 'another_set'
 myset.issuperset(another_set) # Returns 'True' if 'myset' has all the elements of 'another_set' or 'False' if 'myset' does not have all the elements of 'another_set'
-myset.isdisjoint(another_set) # Returns 'True' if 'myset' and 'another_set' have no elements in common, otherwise it returns 'False'
-myset.update(another_set) # Adds the elements in 'another_set' which aren not in 'myset' 
+myset.isdisjoint(another_set) # Returns 'True' if 'myset' and 'another_set' have no elements (null intersection) in common, otherwise it returns 'False'
+myset.update(another_set) # Adds the elements in 'another_set' which are not in 'myset' 
 
 
 
@@ -256,11 +344,11 @@ list_tuple = [(1,2), (3,4), (5,6), (10,11)]
 for (a,b) in list_tuple:
     print(b)
 	
-	
-#When using looping functions like for and while loops, the following are important to keep in mind
-#break: Breaks out of the current closest enclosing loop.
-#continue: Goes to the top of the closest enclosing loop.
-#pass: Does nothing at all. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Examples are shown below:
+## NOTE: You can combine a while statement with an else statement for something to occur if the condition in while is not or no longer true.	
+# When using looping functions like for and while loops, the following are important to keep in mind
+# break: Breaks out of the current closest enclosing loop.
+# continue: Goes to the top of the closest enclosing loop.
+# pass: Does nothing at all. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Examples are shown below:
 
 name = 'Irfan'
 
@@ -280,6 +368,22 @@ for num in range(20):   ## Also can be written as for num in range(0,20)
 for num in range(6,20,2): ## For num falling between numbers 6 and 20, and with a stepwise of 2 ##
     print(num)
 	
+	
+# Using the 'enumerate' function in Python:
+word = 'abcde'
+for item in enumerate(word):
+	print(item) # The result would look like (0, 'a') -> (1, 'b') etc. -- It automatically prints the index, alongside with the item -- may come in handy.
+	
+
+# Using the 'zip' function in Python:
+mylist1 = [1,2,3]
+mylist2 = ['a', 'b', 'c']
+
+for items in zip(mylist1, mylist2):
+	print(items) # The result would look like: (1, 'a') -> (2, 'b') etc. -- It would only print for as long as the lists being zipped have same length -- would zip to the shortest list length.
+
+new_list = list(zip(mylist1, mylist2)) # Creates a new list with the zipped lists.
+
 	
 #Importing functions from libraries in Python.
 from random import shuffle # Here, the 'shuffle' function is being imported from the 'random' library
@@ -363,9 +467,185 @@ def avoiding_6to9(mylist):
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #              FUNCTION DEEP-DIVE
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Functions use snail-casing
+# When creating a function that takes in variables, if not specified, the function would only take in variables according to defined position. The alternative to this is using named arguments. For instance:
+def sample_function(x,y):
+	print(x+y)
+	
+sample_function(3,7) # When this executes, the 'sample_function' function would automatically assign the value: 3 to 'x', and the value: 7 to 'y' -- Here, arguments are taken in by position.
+# You may decide that this is not what you intend to happen, and then instead of allowing the function to take in arguments positionally, you specify what arguments should be taken for where.
+sample_function(y=3, x=7) # Now, when the function executes, the value: 3 would be assigned to 'y', and the value: 7 would be assigned to 'x'. 
+# Note that the variable names for the arguments must be the same names indicated in the definition of the function.
+	
+## 'return' essentially breaks out of a function/loop --
+
+# Interesting 2 functions to reverse an integer.
+def twist(myinteger):
+    mymodulus = 0
+    my_reversed = 0
+    
+    while myinteger > 0:
+        mymodulus = myinteger%10
+        
+        my_reversed = (my_reversed * 10)+mymodulus
+        
+        myinteger = int(myinteger/10)
+        
+    return my_reversed
+# OR
+def reverse_integer(my_integer):
+    string_form = str(my_integer)
+    reversed_string = string_form[::-1]
+    reversed_integer = int(reversed_string)
+    
+    return reversed_integer
 
 
-#Prime number finder function
+
+# Function to check anagram -- still needs work:
+def check_anagram(string1, string2):
+    string_list1 = []
+    string_list2 = []
+    check = True
+    
+    if len(string1) == len(string2):
+        for items in string1:
+            string_list1.append(items)
+        
+        for items in string2:
+            string_list2.append(items)
+        
+        while check == True:
+            if string_list1[0] in string_list2 and len(string_list1) != 0:
+                var = string_list1.pop(0)
+                index = string_list2.index(var)
+                string_list2.pop(index)
+                
+                if string_list1[0] not in string_list2 and len(string_list1) != 0:
+                    print("Not anagrams")
+                    check = False
+                
+            else:
+                check = False
+                
+        if len(string_list1) == 0 and len(string_list2) == 0:
+            print("The words are anagrams")
+        
+    else:
+        print("The words are not anagrams")
+		
+# OR -- better yet
+def check_anagram(string1, string2):
+    # Sort the string by extracting the characters and making a list out of them
+    string1 = sorted(string1)
+    string2 = sorted(string2)
+    
+    if len(string1) == len(string2):
+        for items in range(0, len(string1)):
+            if string1[items] != string2[items]:
+                print("The words are not anagrams of each other.")
+                return 
+                break
+
+        print("The words are definitely anagrams of each other.")
+        
+    else:
+        print("The two words are not anagrams of each other.")
+		
+		
+		
+
+# Function 1 to sort an array -- Not the most processor efficient:
+def sort_array(myarray):
+    keep_count = 1
+    
+    while keep_count != (len(myarray)):
+        for items in range(0, (len(myarray)-1)):
+            if myarray[items] > myarray[items+1]:
+                myarray[items], myarray[items+1] = myarray[items+1], myarray[items]
+        
+        keep_count += 1
+            
+    return myarray
+
+
+
+# Function to find the smallest item in an array
+def find_smallest(myarray):
+    smallest = myarray[0]
+    
+    for item1 in range(0, len(myarray)):
+        if myarray[item1] > smallest:
+            continue
+        for item2 in range(0, len(myarray)):
+            if myarray[item1] <= myarray[item2]:
+                smallest = myarray[item1]
+                
+    return smallest
+
+
+
+# Function to reverse a list in-place -- i.e, no new memory allocation required.
+def reverse_list(mylist):
+    
+    start_index = 0
+    end_index = len(mylist)-1
+    
+    while end_index > start_index:
+        mylist[start_index], mylist[end_index] = mylist[end_index], mylist[start_index]
+        start_index += 1
+        end_index -= 1
+        
+    return mylist
+
+
+
+# Function to check for duplicates of elements within a list
+def detect_duplicate(mylist):
+    result = []
+    
+    for items in range(0, len(mylist)):
+        for item2 in range(0, len(mylist)):
+            if mylist[items] == mylist[item2] and items != item2:
+                result.append(mylist[items])
+                
+    if len(result) != 0:
+        result_set = set(result)
+        for items in result_set:
+            print(f"The program found a duplicate for: {items}")
+        
+    else:
+        print("There are no duplicate items")
+
+
+
+
+# Palindrome checker function -- NOTE that a palindrome is a word that looks exactly same when spelt backwards or forwards (e.g 'radar')
+def check_palindrome(mystring):
+    
+    start_index = 0
+    end_index = len(mystring)-1
+    
+    while end_index > start_index:
+        if mystring[start_index] == mystring[end_index]:
+            palindrome = True
+            
+        else:
+            palindrome = False
+            break
+            
+        start_index += 1
+        end_index -= 1
+        
+    if palindrome == True:
+        print(f"{mystring} is indeed a palindrome.")
+        
+    else:
+        print(f"{mystring} is definitely not a palindrome")
+
+
+
+# Prime number finder function
 def count_primes(num = 1): # Note that I am passing in a default value for num, just in-case it is called and the user doesn't pass in a value -- Good practice
      # Check for 0 or 1 in input
     if num < 2:
@@ -391,6 +671,12 @@ def count_primes(num = 1): # Note that I am passing in a default value for num, 
     print(primes)
 	
 
+## ------------------------------------ ARGS and KWARGS ---------------------------------------------------------------------
+# ARGS - Arguments
+first, second, *others = [1,2,3,4,5,6,7,8,9,12,3,4]
+print(first) # To print out the first item, i.e, 1
+print(second) # To print out the second item, i.e, 2
+print(others) # To make a list of all other items and print them, since the values going into the 'first' and 'second' variable has been achieved.
 
 #A crude way to create a function that would be flexible for whichever number of parameters are passed into it would be like:
 def AdditionFunction(a,b=0,c=0,d=0,e=0):
@@ -402,7 +688,25 @@ def AdditionFunction(a,b=0,c=0,d=0,e=0):
 def AdditionFunction(*args): # A tuple would be returned
 	result = sum((args))
 	return result
+
+# Example 1 -- Here, we would be creating a function to take in several parameters and an operator to use on the parameters.
+# Note that the 'operator' variable must be a named variable when it is called.	
+def apply(*args, operator):
+    if operator == "+":
+        return sum(args)
+    elif operator == "*":
+        return multiply(args)
+    else:
+        return "I do not know what to do here."
+# Calling the function:
+print(apply(1,2,3,4,2,4,5, operator="+")) # Note how the operator was entered as a named variable, and the operation was entered as a string.
+
+# Important to know: When passing '*args' as a parameter for a function;
+# During execution: if '*args' is passed first, any other parameter following it must be named. if '*args' is passed last, other parameters need not be named.
 	
+	
+	
+# KWARGS - Key Word Arguments	
 # *args and **kwargs are interesting way to ensure versatility of a function. While *args allows operations to be done for any number of arguments, **kwargs allows passing in of unlimited mapings and creates a sort of dictionary out of them. For example;
 def NewFunction(**kwargs): # A dictionary would be returned
 	if 'fruit' in kwargs:
@@ -414,6 +718,23 @@ def NewFunction(**kwargs): # A dictionary would be returned
 NewFunction(fruit = 'Apple', vegetable = 'Tomatoes')
 
 # Additional stuff----------------------------------------------
+## NOTE that functions relate to variables using the LEGB notation, where:
+## L - Local (variables within the function itself)
+## E - Enclosing (variables enclosed within a function that the function is enclosed within)
+## G - Global (Variables outside the functions)
+## B - Built-in (Python built-in variables)
+## Note that you can change the value of a global variable from a function with the local same variable by declairng the keyword 'global' beside the variable
+## For example:
+
+x = 50
+
+def func():
+	global x # This tells Python that any change to the variable 'x', should be applied on the global variable 'x'
+	print(f"For now, x is equal to {x}")
+	
+	x = 200 # Local reassignment of 'x'
+	print(f"Now the value of 'x' is {x}")
+
 def user_choice():
     choice = 'WRONG!!'
     acceptable_range = range(0, 11)
@@ -647,6 +968,7 @@ for n in filter(check_even,mynumbers):
 
 
 #---------------------------- LAMBDA ------------------------------------------------------
+# Lambda functions are nameless functions. They are also incapable of printing anything. All lambda functions can do is return values.
 # Lambda functions help to reduce the general length of functions -- Example
 # Consider a function defined as:
 def times2(variable1):
@@ -657,6 +979,11 @@ lambda variable1 : variable1 * 2
 times2 = lambda variable1 : variable1 * 2     # Now, 'times2' is a function that takes in a variable, performs the multiplication operation and returns the result.
 # The result of 'times2' for any particular value can be returned to a variable -- such as:
 result = times2(4)
+
+# Sample lambda function
+lambda x,y : x+y # Lambda function to add two values together.
+add = lambda x,y : x+y # Initializing the 'add' variable with the Lambda function/expression
+add(3,5) # Calling the function on the arguments: 3 and 5. The sum is returned, here.
 
 
 #### Lambda expressions would preferably be used alongside things 'Maps' and 'Filters' -- Such as:
@@ -700,7 +1027,7 @@ class GroupMates(): # Class names should be written with 'Camel' casing
     # supposedly to be constant for any instance of the class
     animal = 'human'
     
-    def __init__(self, name, nationality, personality):
+    def __init__(self, name, nationality, personality): # If there are no initializations in the '__init__' method, you may be able to get away with not defining it, as Pythin would do that.
         
         # Attributes
         # We take in the argument
@@ -846,6 +1173,13 @@ class Book():
 		
 	def __del__(self): #The method '__del__' is a special method allowing customizable information to show when an instance of a class is being deleted with 'del'
 		print('A Book object has just been deleted!')
+		
+	def __repr__(self): # To create an unambiguous representation of a class instance, so that you can use the information to maybe recreate the instance
+		return f"<Book(Author: '{self.author}', Title: '{self.title}', Pages: {self.pages})>"
+		
+book_1 = Book("JK Rowling", "Harry Potter and the prisoner of Askaban", 700) # Creating a sample instance of the 'Book' class.
+print(book_1) # This would print out the information in the '__str__' method. 
+# However, if the '__str__' method was not created, the '__repr__' method would return information that may be used to recreate the instance of the class.
 
 
 
@@ -874,7 +1208,89 @@ class BankAccount():
             
     def __str__(self):
         return f"An account belonging to {self.owner} has been created with {self.balance} dollars."
+		
+		
+		
+		
+# @classmethod and @staticmethod
+# Just as you can define methods to perform operations on instances with their objects and attributes, there also exists a method known as a 'class' method.
+# A class method is essentially a method used by the class itself. 
+# Also, there exists a method known as the 'static' method. 
+# While inctance methods take in the instance and objects, class methods take in the class, static methods do not take in any arguments at all.
 
+# For instance:
+
+class Student():
+    
+    def __init__(self, name = "unnamed", ID = "Nil", grades = (0,0,0,0,0)):
+        self.name = name
+        self.ID = ID
+        self.grades = grades
+        self.university = "Concordia University"
+        
+        
+    def avg_grades(self):
+        total = 0
+        for items in self.grades:
+            total += items
+            
+        average = total/len(self.grades)
+        return average
+    
+    def __del__(self):
+        print(f"You have just deleted all information for {self.name}")
+        
+    @classmethod # Class method.
+    def Student_method(cls): # In class methods, the class itself is passed in as an argument.
+	# If you pass in the instance of the class, the 'class' method would be able to refer to the attributes, and methods of the instance.
+        print("This is strictly for students of Concordia University.")
+		
+	@staticmethod # A static method. Static methods can be viewed as their own separate methods that exist within a class. It has no information about either the class or instance.
+	def static_method1(): # Note that nothing is passed into the static method.
+	# If you pass in the instance of the class, the 'static' method would be able to refer to the attributes, and methods of the instance.
+		print("A static method has been called.")
+
+# Calling the class method:
+Student.Student_method()
+
+# Calling the static method:
+Student.static_method1()
+
+
+
+# Consider this example:
+# The @classmethod ***
+
+class Store():
+    
+    def __init__(self, name):
+        self.name = name
+        self.items = []
+        
+    def add_item(self, name, price):
+        self.items.append({
+            'name': name,
+            'price': price
+        })
+        
+    def stock_price(self):
+        # To add all the item prices in the Store instance
+        total = 0
+        for items in self.items:
+            total += items['price']
+        return total
+    
+    @classmethod
+    def franchise(cls, store):
+        # To return another store, with the same name as the class arguments name, plus "- franchise"
+        new_store = cls(store.name + "- franchise")
+        return new_store
+    
+    @staticmethod
+    def store_details(store):
+        return "{}, total stock price: {}".format(store.name, int(store.stock_price()))
+        # Returning a string representation of the class argument
+        # It takes the format 'NAME, total stock price: TOTAL'
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -1136,7 +1552,7 @@ if pattern in sample_text:
 # However, if you wan to use the 'REGEX' way, we could say
 
 re.search(pattern, sample_text) # This finds the first occurrence of the specified item in the given sample text.
-matchA = re.search(pattern, sample_text)  # This assigns the first occurrence of the searched out item properties to 'match1'. 'match1' essentially becomes an instance of the 're' class.
+matchA = re.search(pattern, sample_text)  # This assigns the first occurrence of the searched out item properties to 'matchA'. 'matchA' essentially becomes an instance of the 're' class.
 matchA.span() # Returns the index location span where the first occurence of the item occured in the string character array
 matchA.start() # Returns the index position where the first occurrence of the searched-out item began
 matchA.end() # Returns the index position where the first occurrence of the searched-out item ends
@@ -1496,6 +1912,46 @@ with open(PDF_to_read, mode='rb') as myfile: # Reading the contents of the first
 
 
 
+
+#---------------------------------------------- Sending emails with Python ----------------------------------------------------------
+import smtplib  # In-built Python library called 'Simple Mail Transfer Protocol' that allows for emails to be sent through a Python script.
+import getpass  # In-built Python library that hides things like passwords or text input that you want to hide
+
+smtp_object = smtplib.SMTP('smtp.gmail.com',587) 
+# Initialize a variable, 'smtp_object' that accesses the SMTP of the chosen mail (gmail in this case), port-number here is 587 -- some cases may have 465
+smtp_object.ehlo() # The variable is now an instance of the SMTP class. The '.ehlo()' method is used to greet the server.
+smtp_object.starttls() # The '.starttls()' method is used to start the encryption process for the intended email to be sent.
+
+email = getpass.getpass("Please enter your email address: ") # Instead of using input(), I am using the 'getpass' library to take the email in a hidden manner.
+password = getpass.getpass('Please enter your app password: ') # Instead of using input(), I am using the 'getpass' library to take the app password in a hidden manner.
+# Note that 'app password' differs from 'email password' for gmail -- You get the app password after you enable 2 factor authentication 
+smtp_object.login(email, password) # The 'login()' method takes in the email and app password and enters them into the server for verification.
+
+sender_address = email # The email address sending the email
+to_address = '12345@yahoo.com' # The email address the mail is being sent to
+subject = input("Enter the subject of the email: ") # Take in the intended subject of the email
+message = input("Enter the message: ") # Take in the intended body of the email
+msg = "Subject: " +subject+"\n"+message # Concatenate them in this way -- the class being used would understand how to separate them.
+
+smtp_object.sendmail(sender_address, to_address, msg)
+smtp_object.quit() # Close the connection to the email server.
+
+
+
+
+#--------------------------------------------------- EXTRAS ------------------------------------------------------
+min(a_list) # returns the minimum value from the passed in list.
+max(a_list) # returns the maximum value from the passed in list.
+sum(a_list) # returns the sum of all the elements from the passed in list.
+len(a_list) # returns the number of items in a list.
+
+#------------ Numbers -------------------------------------------
+hex(number) # To convert an integer into a hexadecimal format of the number -- output is in string format
+bin(number) # To convert an integer into a binary format of the number -- output is in string format
+pow(number1,number2) # Raise number1 to the power of number2 -- i.e number1**number2
+pow(number1,number2,number2) # Raise number1 to the power of number2 and find the remainder when divided by number 3 -- i.e (number1**number2)%number3
+abs(number) # Returns the absolute value of a number. i.e: -3 = 3, 3 = 3
+round(number[, ndigits]) # Would round-up any given number to 0 decimal places, unless when specified as ndigits decimal places
 
 
 
