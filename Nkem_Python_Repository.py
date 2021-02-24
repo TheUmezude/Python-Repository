@@ -158,15 +158,16 @@ with open('C:\\Users\\Admin\\Desktop\\email.txt', mode = 'w+', encoding = 'utf-8
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                                                 DICTIONARIES
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Dictionaries are a method of holding a variety of data types, also - just like how lists and tuples do -   
-# But dictionaries are different from tuples and lists, because the data is stored in an un-ordered manner.
-# Tuples and lists store data in an ordered manner (like keeping socks in shelves in a cabinet), 
-# but dictionaries store them in an un-ordered manner (like throwing socks anywhere in your room) - this makes them unable to be sorted 
-# Dictionaries are hoever able to access the data they store by means of key-value pairs
+'''
+Dictionaries are a method of holding a variety of data types, also - just like how lists and tuples do -   
+But dictionaries are different from tuples and lists, because the data is stored in an un-ordered manner.
+Tuples and lists store data in an ordered manner (like keeping socks in shelves in a cabinet), 
+but dictionaries store them in an un-ordered manner (like throwing socks anywhere in your room) - this makes them unable to be sorted 
+Dictionaries are hoever able to access the data they store by means of key-value pairs
 
 # The dictionary syntax is also different from tuple and list syntax. They use curly braces and colons to separate the keys from the associated values
 # Since dictionaries are unsorted, they are useful when you may need to retrieve data, without knowing the exact location of the data - you just call the key
-
+'''
 # Create Dictionary
 my_dictionary = {'key1': 'value1', 'key2': 'value2'}
 
@@ -316,10 +317,11 @@ x = (5,) # Even when defining a tuple with a single value, Python needs you to p
 .insert(index, value) # to insert a value into a particular index location in a list
 .sort() # To sort the contents of your list in place. 
 
-
-## Sets are unordered collections of unique items.
-# Note that elements in a set cannot be accessed by indexing, like lists and tuples.
-# Important methods to use with sets
+'''
+Sets are unordered collections of unique items.
+ Note that elements in a set cannot be accessed by indexing, like lists and tuples.
+ Important methods to use with sets
+'''
 .add() # to add one new item to end of set
 .pop(index) # to remove an item from the beginning of the set or indicated index
 .clear() # to remove all the items in a set
@@ -343,13 +345,14 @@ list_tuple = [(1,2), (3,4), (5,6), (10,11)]
 
 for (a,b) in list_tuple:
     print(b)
-	
-## NOTE: You can combine a while statement with an else statement for something to occur if the condition in while is not or no longer true.	
-# When using looping functions like for and while loops, the following are important to keep in mind
-# break: Breaks out of the current closest enclosing loop.
-# continue: Goes to the top of the closest enclosing loop.
-# pass: Does nothing at all. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Examples are shown below:
 
+'''	
+NOTE: You can combine a while statement with an else statement for something to occur if the condition in while is not or no longer true.	
+When using looping functions like for and while loops, the following are important to keep in mind
+break: Breaks out of the current closest enclosing loop.
+continue: Goes to the top of the closest enclosing loop.
+pass: Does nothing at all. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Examples are shown below:
+'''
 name = 'Irfan'
 
 for letter in name:
@@ -467,8 +470,10 @@ def avoiding_6to9(mylist):
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #              FUNCTION DEEP-DIVE
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Functions use snail-casing
-# When creating a function that takes in variables, if not specified, the function would only take in variables according to defined position. The alternative to this is using named arguments. For instance:
+'''
+Functions use snail-casing
+When creating a function that takes in variables, if not specified, the function would only take in variables according to defined position. The alternative to this is using named arguments. For instance:
+'''
 def sample_function(x,y):
 	print(x+y)
 	
@@ -670,6 +675,17 @@ def count_primes(num = 1): # Note that I am passing in a default value for num, 
             
     print(primes)
 	
+	
+# Nested functions: Functions can be called as variables into other functions. For instance:
+# I would define the first function here:
+def divide(dividend, divisor):
+	if divisor == 0:
+		raise ZeroDivisionError("Divisor cannot be 0.") # Note that when an error is raised, the program stops. Hence why try-except-finally may be preferable.
+	return dividend/divisor
+	
+def calculate(*values, operator): # Here, the 'operator' argument is a function argument. 
+	return operator(*values) # The 'operator' argument is executeds here.
+	
 
 ## ------------------------------------ ARGS and KWARGS ---------------------------------------------------------------------
 # ARGS - Arguments
@@ -716,16 +732,16 @@ def NewFunction(**kwargs): # A dictionary would be returned
 		
 #We can call the function, now;
 NewFunction(fruit = 'Apple', vegetable = 'Tomatoes')
-
-# Additional stuff----------------------------------------------
-## NOTE that functions relate to variables using the LEGB notation, where:
-## L - Local (variables within the function itself)
-## E - Enclosing (variables enclosed within a function that the function is enclosed within)
-## G - Global (Variables outside the functions)
-## B - Built-in (Python built-in variables)
-## Note that you can change the value of a global variable from a function with the local same variable by declairng the keyword 'global' beside the variable
-## For example:
-
+'''
+Additional stuff----------------------------------------------
+NOTE that functions relate to variables using the LEGB notation, where:
+ L - Local (variables within the function itself)
+ E - Enclosing (variables enclosed within a function that the function is enclosed within)
+ G - Global (Variables outside the functions)
+ B - Built-in (Python built-in variables)
+ Note that you can change the value of a global variable from a function with the local same variable by declairng the keyword 'global' beside the variable
+ For example:
+'''
 x = 50
 
 def func():
@@ -769,8 +785,10 @@ def choose_first():
 
 
 #------------------------------------- DECORATORS ---------------------------------------------
-# When you create a function in Python, you can 'assign' that function to another variable, such that the variable inherits the behavior of the function
-# Example:
+'''
+When you create a function in Python, you can 'assign' that function to another variable, such that the variable inherits the behavior of the function
+Example:
+'''
 def say_hi():
 	return "Hi, there!"
 	
@@ -823,7 +841,7 @@ def function_executor(a_function): # This is a function that takes in another fu
 	
 	
 	
-# Another decorator example
+# Decorator example 1
 def func_needs_decorator():
 	return "I want to be decorated!"
 
@@ -850,12 +868,49 @@ new_decorator(func_needs_decorator) # This passes the 'func_needs_decorator' fun
 def func_needs_decorator():
 	return "I want to be decorated" # by doing this, Python automatically passes the function 'func_needs_decorator' into the 'new_decorator' function as an argument.
 	
+
+
+# Decorator example 2:
+def get_admin_password():
+    return "1234"
+
+def make_secure(func):
+    def secure_function():
+        if user["access_level"] == "admin":
+            return func()
+        else:
+            return f"{user['username']} has no admin priviledges."
+        
+    return secure_function
+	
+user = {'username': 'Jose', 'access_level': 'admin'}
+get_admin_password = make_secure(get_admin_password)
+print(get_admin_password())
+
+# We can use the '@' keyword to rewrite the Decorator example 2:
+def make_secure(func): # Since we would be using the '@' keyword, we can define the main body function first, as opposed to what was done in the example above.
+    def secure_function():
+        if user["access_level"] == "admin":
+            return func()
+        else:
+            return f"{user['username']} has no admin priviledges."
+        
+    return secure_function()
+
+@make_secure # By putting this '@' keyword, python knows to run the function below through the earlier defined 'make_secure' function.  
+def get_admin_password():
+    return "1234"
+	
+print(get_admin_password) # This can be run straight-away as Python knows to pass it through the 'make_secure' function first.
+
+
 	
 	
 #------------------------------------- GENERATORS ---------------------------------------------
-# Generators are an efficient way to perform particular operations without taking up so much space in memory. For example:
-# If I wanted to write a function that finds the square of numbers within a range given, I would do soemthing like:
-
+'''
+Generators are an efficient way to perform particular operations without taking up so much space in memory. For example:
+If I wanted to write a function that finds the square of numbers within a range given, I would do soemthing like:
+'''
 def find_squares(value):
 
 	squares_result = [] # I would initialize a list to hold the values of the squares that I find
@@ -932,8 +987,10 @@ print(next(s_iter)) # Should print 'l'
 #                                          LAMBDA, MAP AND FILTER FUNCTIONS
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #----------------------------- MAP ------------------------------------------
-#Mapping helps to link an established function to an established set of data without complicating the function
-# Example: we define a function called splicer, we define a set of data, then request a tuple to be formed by mapping the function to the data parameters
+'''
+Mapping helps to link an established function to an established set of data without complicating the function
+Example: we define a function called splicer, we define a set of data, then request a tuple to be formed by mapping the function to the data parameters
+'''
 def splicer(mystring):
     if len(mystring)%2 == 0:
         return 'Babe'
@@ -968,9 +1025,11 @@ for n in filter(check_even,mynumbers):
 
 
 #---------------------------- LAMBDA ------------------------------------------------------
-# Lambda functions are nameless functions. They are also incapable of printing anything. All lambda functions can do is return values.
-# Lambda functions help to reduce the general length of functions -- Example
-# Consider a function defined as:
+'''
+Lambda functions are nameless functions. They are also incapable of printing anything. All lambda functions can do is return values.
+Lambda functions help to reduce the general length of functions -- Example
+Consider a function defined as:
+'''
 def times2(variable1):
 	return variable1 * 2       # This function takes in a variable, and returns the variable multiplied by 2
 # Rewriting in a Lambda expression would look like:
@@ -1018,9 +1077,10 @@ print(capital_letters)
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                                                 CLASSES
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-#Classes are an important aspect of 'Object Oriented Programming (OOP)'
-# A sample class is shown below with its attributes, and a way to relate a variable under the class to the attributes is also shown:
+'''
+Classes are an important aspect of 'Object Oriented Programming (OOP)'
+A sample class is shown below with its attributes, and a way to relate a variable under the class to the attributes is also shown:
+'''
 
 class GroupMates(): # Class names should be written with 'Camel' casing
     # Defining a CLASS OBJECT ATTRIBUTE
@@ -1093,9 +1153,11 @@ class Animal():
 	def eat(self):
 		print('I am eating...')
 
-# Now we create another class which is supposed to inherit from the first class
-# In this class that inherits from the previous class, several other methods can be added 
-# Or methods from the previous class can be overwritten by naming methods in this new class with the same name as the class they are inheriting from 
+'''
+Now we create another class which is supposed to inherit from the first class
+In this class that inherits from the previous class, several other methods can be added 
+Or methods from the previous class can be overwritten by naming methods in this new class with the same name as the class they are inheriting from 
+'''
 class Cat():
 
 	def __init__(self):
@@ -1156,6 +1218,103 @@ class Dog(Animal): # Here, I am passing in the class called 'Animal', so I can u
 # When creating an instance of this 'Dog' class, the argument 'name' should be passed in, since the 'Dog' class is inheriting the '__init__' method from the Animal # class. For example, in creating an instance, I would say: mydog = Dog('Jessie'), even though I didn't declare an '__init__' that takes the name argument.
 
 
+'''
+Sample case of inheritance that allows for modification of '__init__' and '__str__' methods while maintaining the inheritance from the respective parent class
+The parent class, here is 'Device' and the children classes include 'Printer' and 'FlashDrive'
+'''
+class Device(): #Parent class for a group of devices - sample
+    def __init__(self, name: str, connected_by): 
+	# 'name: str' is a way of specifying to Python what data-type a variable should contain. In this case, the variable 'name' is type-hinted to be a string type.
+	# No error would be geenrated if an item that differs from a string is sent in, however. It is probably just necessary for documentation and readability.
+        self.name = name
+        self.connected_by = connected_by
+        self.connected = True
+        
+    def __str__(self):
+        return f"The device: {self.name!r} is connected by {self.connected_by}" #The '!r' is just to invoke the '__repr__' method and put the device name in quotes - You could do it other ways.
+    
+    def disconnect(self): # These methods can be inherited by the children class
+        self.connected = False
+        print(f"Device ({self.name!r}) has been disconnected")
+        
+    def connect(self): # These methods can be inherited by the children class
+        self.connected = True
+        print(f"Device ({self.name!r}) has been connected")
+        
+
+# Child 1
+class Printer(Device): # Child class inheriting from the parent class 'Device'
+    def __init__(self, name: str, connected_by, capacity):
+        super().__init__(name, connected_by)
+        self.capacity = capacity # Only required attribute since child class would inherit attributes from parent class
+        self.remaining_pages = capacity
+        # super().__init__(arguments) is used to pass in the '__init__' method of the parent class into the child class
+        
+    def __str__(self):
+        return f"{super().__str__()}. Remaining pages: {self.remaining_pages}"
+        # super().__str__() is used to pass the '__str__' method of the parent class into the child class 
+    
+    def print_out(self, pages):
+        if not self.connected:
+            print("Your printer is not connected.")
+            
+        elif self.connected and self.remaining_pages > pages:
+            print(f"Currrently printing: {pages} pages")
+            self.remaining_pages -= pages
+            
+        else:
+            print(f"The printer ({self.name!r}) is unable to print the number of pages you have requested.")
+            
+            
+# Child 2
+class FlashDrive(Device): # Child class inheriting from the parent class 'Device'
+    def __init__(self, name: str, connected_by, storage):
+        super().__init__(name, connected_by)
+        self.storage = storage # Only required attribute since child class would inherit attributes from parent class
+        self.remaining_storage = storage
+        # super().__init__(arguments) is used to pass in the '__init__' method of the parent class into the child class
+        
+    def __str__(self):
+        return f"{super().__str__()}. Remaining storage: {self.remaining_storage}Gb"
+        # super().__str__() is used to pass the '__str__' method of the parent class into the child class 
+    
+    def use_up(self, use_memory):
+        if not self.connected:
+            print("Your flash drive is not connected.")
+            
+        elif self.connected and self.remaining_storage > use_memory:
+            print(f"Using up: {use_memory}Gb")
+            self.remaining_storage -= use_memory
+            
+        else:
+            print(f"The flash drive ({self.name!r}) does not have enough memory.")
+
+#----------------------------------------------------------------------------------------------------------------------------------
+
+#--------------------- Class Composition ------------------------------------------------
+'''
+ While Inheritance works for children classes that have attributes of a parent class, 
+ such that the child class (Lion for instance) is a parent class (mammal), but the parent (mammal) is not necessarily a child (lion).
+ Composition, allows you to make a class that accepts inctances of other classes and analyzes them.
+'''
+class BookShelf(): 
+    def __init__(self, *books): #The 'BookShelf class would take in the Book class instances as arguments'
+        self.books = books
+        
+    def __str__(self):
+        return f"The bookshelf has {len(self.books)} books."
+    
+class Book():
+    def __init__(self, name):
+        self.name = name
+        
+    def __str__(self):
+        return f"self.name"
+		
+#-------------------------------------------------------------------------------------------------------------------
+
+
+
 
 #To use normal python functions like 'len', 'print', etc. with a class instance, special methods (Dunder methods) have to be applied. FOr example:
 class Book():
@@ -1211,15 +1370,15 @@ class BankAccount():
 		
 		
 		
-		
-# @classmethod and @staticmethod
-# Just as you can define methods to perform operations on instances with their objects and attributes, there also exists a method known as a 'class' method.
-# A class method is essentially a method used by the class itself. 
-# Also, there exists a method known as the 'static' method. 
-# While inctance methods take in the instance and objects, class methods take in the class, static methods do not take in any arguments at all.
+'''		
+ @classmethod and @staticmethod
+ Just as you can define methods to perform operations on instances with their objects and attributes, there also exists a method known as a 'class' method.
+ A class method is essentially a method used by the class itself. 
+ Also, there exists a method known as the 'static' method. 
+ While instance methods take in the instance and objects, class methods take in the class, static methods do not take in any arguments at all.
 
-# For instance:
-
+ For instance:
+'''
 class Student():
     
     def __init__(self, name = "unnamed", ID = "Nil", grades = (0,0,0,0,0)):
@@ -1252,7 +1411,6 @@ class Student():
 
 # Calling the class method:
 Student.Student_method()
-
 # Calling the static method:
 Student.static_method1()
 
@@ -1278,7 +1436,7 @@ class Store():
         total = 0
         for items in self.items:
             total += items['price']
-        return total
+        return (total)
     
     @classmethod
     def franchise(cls, store):
@@ -1291,6 +1449,11 @@ class Store():
         return "{}, total stock price: {}".format(store.name, int(store.stock_price()))
         # Returning a string representation of the class argument
         # It takes the format 'NAME, total stock price: TOTAL'
+		
+# General format for calling class methods:
+CLASS_NAME.class_method(class_instance) # if an argument, plus all other arguments)
+# General format for calling static methods:
+CLASS_NAME.static_method(class_instance) # if an argument, plus all other arguments)
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -1302,11 +1465,12 @@ class Store():
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                                                        MAKING PERSONAL MODULES AND PACKAGES/LIBRARIES
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-# Just like we are able to use libraries or packages made by third-parties, we can also make our own modules and packages/libraries
-# If I have two python scripts open, lets say 'script 1' = 'main.py' and 'script 2' = 'function_script.py',
-# I can import functions from 'function_script.py' to 'main.py' in two ways:
-# --- Way 1 --- in 'main.py'
+'''
+ Just like we are able to use libraries or packages made by third-parties, we can also make our own modules and packages/libraries
+ If I have two python scripts open, lets say 'script 1' = 'main.py' and 'script 2' = 'function_script.py',
+ I can import functions from 'function_script.py' to 'main.py' in two ways:
+ --- Way 1 --- in 'main.py'
+'''
 from function_script import function1
 print(function1())
 
@@ -1334,12 +1498,14 @@ else:
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                                                      ERRORS AND EXCEPTIONS HANDLING
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-# 'Error handling' is a way to allow a script which is being executed to continue running even if it encountered an input/logic error
-# Without 'Error handling' procedures, entire scripts would be stopped when the program comes across something it is unable to understand
-# 'Error handling' uses 3 key words:
-# try - The block of code to be attempted... May lead to an error.
-# except - The block of code to execute, in-case there is an error in the 'try' block.
-# finally - Final block of code to be executed, regardless of an error.
+'''
+ 'Error handling' is a way to allow a script which is being executed to continue running even if it encountered an input/logic error
+ Without 'Error handling' procedures, entire scripts would be stopped when the program comes across something it is unable to understand
+ 'Error handling' uses 3 key words:
+ try - The block of code to be attempted... May lead to an error.
+ except - The block of code to execute, in-case there is an error in the 'try' block.
+ finally - Final block of code to be executed, regardless of an error -- It would always print out.
+'''
 try:
     result = 20 + '2' # -- Adding an integer to a string would cause an error, so with this 'try-except-else' statement, 
 	# when the error is realized, the except statement is run, also, if there is no error, the try runs and the 'else' statement runs as well.
@@ -1358,7 +1524,7 @@ except TypeError:
     print("Sorry, there was a type error.")
 except OSError:
     print("Sorry, there was an OS error.")
-finally:
+finally: # Would run irrespective of if there is an error or not
     print("I am running fine")
 	
 # Another example
@@ -1373,13 +1539,13 @@ def ask_for_int():
         else:
             print("Thanks")
             break
-        finally:
+        finally: # would run irrespective of if there is an error or not.
             print("Yeah, I'm just chilling back here.")
-	
-# You can reference https://docs.python.org/3/tutorial/errors.html for more information on different types of errors.
-# Just my opinion, though, but it seems that error handling is how passcode entries are managed.
-
-
+'''	
+ You can reference https://docs.python.org/3/tutorial/errors.html for more information on different types of errors.
+ Just my opinion, though, but it seems that error handling is how passcode entries are managed.
+ Note that when raising errors in your code, you can give arbitrary error names. 
+'''
 
 
 
@@ -1537,9 +1703,10 @@ shutil.unpack_archive('example.zip', 'final_unzip', 'zip') # Here, we are specif
 
 
 #---------------------------------------------- Regular Expressions ----------------------------------------------------------
-# 'Regular Expressions (REGEX)' allow you to search out particular patterns from bulk text -- SUch as finding things that look like phone numbers, emails or specific items in general text
-# To use 'Regular Expressions' we have to import the respective library in Python
-
+'''
+ 'Regular Expressions (REGEX)' allow you to search out particular patterns from bulk text -- SUch as finding things that look like phone numbers, emails or specific items in general text
+ To use 'Regular Expressions' we have to import the respective library in Python
+'''
 #--------- Example Set 1 -- When we know what exactly the item we are looking for looks like
 import re     # Importing the 'Regular Expresisons' library
 
@@ -1569,13 +1736,14 @@ for items in re.finditer(pattern, sample_text):
 
 	
 #--------- Example Set 2 -- When we do not know what exactly the item we are looking for looks like -- Finding a phone number
-# \d = A digit ---- Example: file_\d\d ---- for: file_25
-# \w = Alphanumeric ---- Example: \w-\w\w\w ---- for: A-b_1
-# \s = White space ---- Example: a\sb\sc ---- for: a b c
-# \D = Non-digit ---- Example: \D\D\D ---- for: ABC
-# \W = Non-alphanumeric ---- Example: \W\W\W\W\W ---- for: *-+=)
-# \S = Non-whitespace ---- Example: \S\S\S\S ---- for: Yoyo
-
+'''
+ \d = A digit ---- Example: file_\d\d ---- for: file_25
+ \w = Alphanumeric ---- Example: \w-\w\w\w ---- for: A-b_1
+ \s = White space ---- Example: a\sb\sc ---- for: a b c
+ \D = Non-digit ---- Example: \D\D\D ---- for: ABC
+ \W = Non-alphanumeric ---- Example: \W\W\W\W\W ---- for: *-+=)
+ \S = Non-whitespace ---- Example: \S\S\S\S ---- for: Yoyo
+'''
 # When the exact item is unknown, but the pattern is known -- for instance, the pattern of a phone number is '\d\d\d-\d\d\d-\d\d\d\d', where '\d' represents a digit.
 # Consider the sample:
 import re
@@ -1598,15 +1766,15 @@ for items in re.finditer(pattern,phone_list):
     print(items.group())
 	
 
-	
-# --- Quantifier deep-dive:
-# + : Occurs one or more times ---- For example: Version \w-\w+ --- for: Version A-b1_1
-# {3} : Occurs exactly 3 times ---- For example: \D{3} --- for: abc
-# {2,4} : Occurs 2 to 4 times ---- For example: \d{2,4} --- for: 123
-# {3,} : Occurs 3 or more times ---- For example: \w{3,} --- for: jbfudfbeu
-# * : Occurs zero or more times ---- For example: ABC* --- for: AAACC
-# ? : Once or none ---- For example: plurals? --- for: plural ---- 's' occurs once or none at all.
-
+'''	
+ --- Quantifier deep-dive:
+ + : Occurs one or more times ---- For example: Version \w-\w+ --- for: Version A-b1_1
+ {3} : Occurs exactly 3 times ---- For example: \D{3} --- for: abc
+ {2,4} : Occurs 2 to 4 times ---- For example: \d{2,4} --- for: 123
+ {3,} : Occurs 3 or more times ---- For example: \w{3,} --- for: jbfudfbeu
+ * : Occurs zero or more times ---- For example: ABC* --- for: AAACC
+ ? : Once or none ---- For example: plurals? --- for: plural ---- 's' occurs once or none at all.
+'''
 #--------- Example Set 3 -- When we do not know what exactly the item we are looking for looks like -- Finding an email
 import re
 # I'd put a sample text containing an email address that I would like to find:
@@ -1635,8 +1803,9 @@ print(clean) # A print-out of list containing only the words is gotten.
 
 
 #--------------------- Web-scraping with Python -------------------------------------
-# Note that a code you may write to scrape information off a website may need to be updated even for the same website -- as website source code may change
-
+'''
+Note that a code you may write to scrape information off a website may need to be updated even for the same website -- as website source code may change
+'''
 import requests  # Library that allows page source information of webpages to be accessed.
 import bs4  # Beautiful soup library that allows information to be extracted from the webpage
 
@@ -1782,8 +1951,10 @@ for item1 in author_set:
 
 
 #---------------------------------------------- Working with images in Python ----------------------------------------------------------
-# The Pillow library is a fork of the PIL (Python Imaging Library) with easy to use function calls.
-# Documentation for the library can be found here: pillow.readthe docs.io
+'''
+The Pillow library is a fork of the PIL (Python Imaging Library) with easy to use function calls.
+Documentation for the library can be found here: pillow.readthe docs.io
+'''
 from PIL import Image    # To use the 'pillow' library, you still have to call 'PIL' -- It can be called in this way.
 photo1 = Image.open('C:\\Users\\Admin\\Desktop\\Random images\\1.jpg')
 photo1.show() # This can be used to call the photo to be displayed.
@@ -1792,10 +1963,11 @@ photo2 = photo1.crop((530,100,1000,740)) # I am creating a new image, photo2, th
 photo1.paste(im=photo2, box=(0,0)) # I am pasting the new image, photo2, into the original image, photo1 with its 0,0 point coincident with the 0,0 point of photo1.
 # Note that whatever changes you make would permanently affect the variable, allbeit not permanently affecting the original image.
 
-# Image formats usually exist as 'RGBA' formats, where R = Red, G = Green, B = Blue and A = Transparency. 
-# Each of these go from 0 to 255 with 0 meaning a complete absence (in case of R, G and B values), and 255 meaning complete presence (in case of R, G and B values)
-# For A, i.e 'Alpha', 0 means complete transparency of the image, 255 means complete opacity of the image.
-
+'''
+Image formats usually exist as 'RGBA' formats, where R = Red, G = Green, B = Blue and A = Transparency. 
+Each of these go from 0 to 255 with 0 meaning a complete absence (in case of R, G and B values), and 255 meaning complete presence (in case of R, G and B values)
+For A, i.e 'Alpha', 0 means complete transparency of the image, 255 means complete opacity of the image.
+'''
 # Important attributes with images
 .size # to show the size of the image in pixels
 .filename # To get the file name of the image -- with the path
@@ -1812,11 +1984,13 @@ photo1.paste(im=photo2, box=(0,0)) # I am pasting the new image, photo2, into th
 
 
 #---------------------------------------------- Working with CSV in Python ----------------------------------------------------------
-# .csv files, can be gotten out of regular spreadsheet files, like excel spreadsheet files, however, .csv would only contain the raw data from the spreadsheet.
-# Things like images, formulas, etc., cannot be contained in a .csv file
-# Pandas library allows for extensive data science applications, inclusive of .csv manipulation
-# Openpyxl library is another module for manipulating excel related files and documents
-# Google sheets Python API
+'''
+.csv files, can be gotten out of regular spreadsheet files, like excel spreadsheet files, however, .csv would only contain the raw data from the spreadsheet.
+Things like images, formulas, etc., cannot be contained in a .csv file
+Pandas library allows for extensive data science applications, inclusive of .csv manipulation
+Openpyxl library is another module for manipulating excel related files and documents
+Google sheets Python API
+'''
 import csv  # Library that allows you work with .csv files, asides the already aforementioned.
 
 working_sheet = 'C:\\Users\\Admin\\Desktop\\Randoms\\Random SpreadSheets\\example.csv'  # Initializing the variable, 'working_sheet' with the file-path for the file we intend to work with.
@@ -1871,9 +2045,10 @@ with open(sheet_to_read, mode= 'w', encoding = 'utf-8', newline='') as datafile:
 	
 
 #---------------------------------------------- Working with PDFs in Python ----------------------------------------------------------
-# Unlike '.csv' files, some PDF files are not readable by Python -- Unless with advanced ML methods.
-# Unreadable PDF files include PDFs generated by scanning documents - Scanned documents are essentially like pictures.
-
+'''
+Unlike '.csv' files, some PDF files are not readable by Python -- Unless with advanced ML methods.
+Unreadable PDF files include PDFs generated by scanning documents - Scanned documents are essentially like pictures.
+'''
 # Reading into PDFs ------------------------------------------------------------------
 import PyPDF2 # Import the library that allows for analysis of the PDF document
 
@@ -1944,6 +2119,7 @@ min(a_list) # returns the minimum value from the passed in list.
 max(a_list) # returns the maximum value from the passed in list.
 sum(a_list) # returns the sum of all the elements from the passed in list.
 len(a_list) # returns the number of items in a list.
+id(item) # returns the memory location of a created list, tuple, dictionary, variable, etc. 
 
 #------------ Numbers -------------------------------------------
 hex(number) # To convert an integer into a hexadecimal format of the number -- output is in string format
@@ -2017,6 +2193,16 @@ print(emoji.emojize(":winking_face_with_tongue:"))
 print(emoji.emojize(":zipper-mouth_face:")) 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
+
+
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#                                                      WORKING WITH FALSK IN PYTHON
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+'''
+Going to a web page would always do a GET request.
+Nevertheless, there are other things that could also be done. Such as: POST, DELETE, OPTIONS, HEAD
+'''
 
 
 
