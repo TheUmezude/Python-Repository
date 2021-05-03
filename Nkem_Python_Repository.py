@@ -43,7 +43,7 @@ s.center(20,'z') # To center the string 's' between 'z' characters and for a len
 print ("The {0} {2} {1}".format("quick", "fox", "brown")) # Result: The quick brown fox
 
 #using the '.format' method with keywords.
-print ("The {q} {b} {f}".format(q = "quick", f = "fox", b = "brown")) # Result: The quick brown fox
+print ("The {q} {b} {f}".format(q="quick", f="fox", b="brown")) # Result: The quick brown fox
 
 #Using the F-string method
 q = quick
@@ -54,7 +54,7 @@ print(f"The {q} {b} {f}")
 # The '.format' method can also be used for float formatting, such as in example---
 result = 100/777  # originally, that result would be: 0.1287001287001287
 # However, if I wantto print to format the result (like rounding it up), and print to screen, I could use the '.format' method and specify width & precision. using format {value:width.precision f} Like so ---
-print("The result was {r:1.3f}".format(r = result))
+print("The result was {r:1.3f}".format(r=result))
 # Print out would be: 'The result was 0.129'
 # Note, that the width (1) indicates how much white spaces before and with the value, precision (3)indicates how you want it rounded up.
 
@@ -94,7 +94,7 @@ False or False ----> False
 
 ## Logical Operators:
 and # The two conditions must be true, if not it returns false
-or # At-least one of the conditions must be tru for it to return true
+or # At-least one of the conditions must be true for it to return true
 not # should not occur
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -162,11 +162,11 @@ with open('C:\\Users\\Admin\\Desktop\\email.txt', mode = 'w+', encoding = 'utf-8
 Dictionaries are a method of holding a variety of data types, also - just like how lists and tuples do -   
 But dictionaries are different from tuples and lists, because the data is stored in an un-ordered manner.
 Tuples and lists store data in an ordered manner (like keeping socks in shelves in a cabinet), 
-but dictionaries store them in an un-ordered manner (like throwing socks anywhere in your room) - this makes them unable to be sorted 
-Dictionaries are hoever able to access the data they store by means of key-value pairs
+but dictionaries store them in an un-ordered manner (like throwing socks anywhere in your room) - this makes them unable to be sorted.
+Dictionaries are hoever able to access the data they store by means of key-value pairs.
 
-# The dictionary syntax is also different from tuple and list syntax. They use curly braces and colons to separate the keys from the associated values
-# Since dictionaries are unsorted, they are useful when you may need to retrieve data, without knowing the exact location of the data - you just call the key
+The dictionary syntax is also different from tuple and list syntax. They use curly braces and colons to separate the keys from the associated values.
+Since dictionaries are unsorted, they are useful when you may need to retrieve data, without knowing the exact location of the data - you just call the key.
 '''
 # Create Dictionary
 my_dictionary = {'key1': 'value1', 'key2': 'value2'}
@@ -206,7 +206,7 @@ my_dict = {'k1':1, 'k2':2, 'k3':3}
 for items in my_dict:
 	print(items) # This prints out just the keys of the dictionary, whereas, if tuple unpacking (as shown below) is used:
 	
-for item1, item2 in my_dict.items():
+for item1, item2 in my_dict.items(): # Note that the '.items()' method is called and executed, here.
 	print(f"Key: {item1}") # Printing out from the keys
 	print(f"Value: {item2}") # Printing out from the values
 	
@@ -305,7 +305,7 @@ x = (5,) # Even when defining a tuple with a single value, Python needs you to p
 
 
 # Important methods to use with lists
-.append() # to add one new item to end of list
+.append() # to add one new item to the end of a list
 .pop(index) # to remove an item from end of list or indicated index
 .extend(list) # to add the contents of one list into a new list 
 .clear() # to remove all the items in a list
@@ -328,14 +328,14 @@ Sets are unordered collections of unique items.
 .copy() # to return the contents of a set as an assignment to a new set variable -- future modification to the original set is not translated to the new set.
 .discard(element) # To remove the initialized element from the set -- if not in set, nothing happens.
 myset.intersection(another_set) # To return only the contents that are in both 'myset' and 'another_set'
-myset.intersection_update(another_set) # To overwrite the contents of 'myset' with the elements that are both in 'myset' and 'another_set'
+myset.intersection_update(another_set) # To overwrite the contents of 'myset' with the elements that are both in 'myset' and 'another_set' -- Occurs in place.
 myset.union(another_set) # To unify the contents in 'myset' with the contents in 'another_set' and return the aggregate
 myset.difference(another_set) # To return the elements in 'myset' that are not in 'another_set'
-myset.difference_update(another_set) # To overwrite the contents of 'myset' with elements that are in 'myset' but are not in 'another_set'
+myset.difference_update(another_set) # To overwrite the contents of 'myset' with elements that are in 'myset' but are not in 'another_set' -- Occurs in place.
 myset.issubset(another_set) # Returns 'True' if 'myset' is a subset of 'another_set' or 'False' if 'myset' is not a subset of 'another_set'
 myset.issuperset(another_set) # Returns 'True' if 'myset' has all the elements of 'another_set' or 'False' if 'myset' does not have all the elements of 'another_set'
 myset.isdisjoint(another_set) # Returns 'True' if 'myset' and 'another_set' have no elements (null intersection) in common, otherwise it returns 'False'
-myset.update(another_set) # Adds the elements in 'another_set' which are not in 'myset' 
+myset.update(another_set) # Adds the elements in 'another_set' which are not in 'myset' -- Occurs in place.
 
 
 
@@ -368,7 +368,7 @@ for letter in name:
 for num in range(20):   ## Also can be written as for num in range(0,20)
     print(num)
 	
-for num in range(6,20,2): ## For num falling between numbers 6 and 20, and with a stepwise of 2 ##
+for num in range(6,20,2): ## For num falling between numbers 6 and 20, and with a stepsize of 2 ##
     print(num)
 	
 	
@@ -485,18 +485,23 @@ sample_function(y=3, x=7) # Now, when the function executes, the value: 3 would 
 ## 'return' essentially breaks out of a function/loop --
 
 # Interesting 2 functions to reverse an integer.
-def twist(myinteger):
-    mymodulus = 0
-    my_reversed = 0
+def reverse_int(integer):
+    rev_int = 0
+    if integer < 0:
+        integer = integer * -1
+        
+        while integer != 0:
+            remainder = integer % 10
+            rev_int = (rev_int*10) + remainder 
+            integer = int(integer/10)
+        return (rev_int * -1)
     
-    while myinteger > 0:
-        mymodulus = myinteger%10
-        
-        my_reversed = (my_reversed * 10)+mymodulus
-        
-        myinteger = int(myinteger/10)
-        
-    return my_reversed
+    else:
+        while integer != 0:
+            remainder = integer % 10
+            rev_int = (rev_int*10) + remainder 
+            integer = int(integer/10)
+        return rev_int
 # OR
 def reverse_integer(my_integer):
     string_form = str(my_integer)
@@ -509,35 +514,26 @@ def reverse_integer(my_integer):
 
 # Function to check anagram -- still needs work:
 def check_anagram(string1, string2):
-    string_list1 = []
-    string_list2 = []
-    check = True
+    first_string = [item for item in string1.lower() if item!=' ']
+    second_string = [item for item in string2.lower() if item!= ' ']
+    counter = 0
     
-    if len(string1) == len(string2):
-        for items in string1:
-            string_list1.append(items)
-        
-        for items in string2:
-            string_list2.append(items)
-        
-        while check == True:
-            if string_list1[0] in string_list2 and len(string_list1) != 0:
-                var = string_list1.pop(0)
-                index = string_list2.index(var)
-                string_list2.pop(index)
-                
-                if string_list1[0] not in string_list2 and len(string_list1) != 0:
-                    print("Not anagrams")
-                    check = False
-                
-            else:
-                check = False
-                
-        if len(string_list1) == 0 and len(string_list2) == 0:
-            print("The words are anagrams")
-        
+    if len(string1) != len(string2):
+        return f"The strings {string1} and {string2} are not anagrams."
+    
     else:
-        print("The words are not anagrams")
+        while len(first_string) != 0:
+            if first_string[0] in second_string:
+                index1 = second_string.index(first_string[0])
+                first_string.pop(0)
+                second_string.pop(index1)
+                #print("Still checking")
+                    
+            else:
+                return f"The strings {string1} and {string2} are not anagrams."
+                
+        else:
+            return f"The strings {string1} and {string2} are anagrams!" 
 		
 # OR -- better yet
 def check_anagram(string1, string2):
@@ -651,30 +647,72 @@ def check_palindrome(mystring):
 
 
 # Prime number finder function
-def count_primes(num = 1): # Note that I am passing in a default value for num, just in-case it is called and the user doesn't pass in a value -- Good practice
-     # Check for 0 or 1 in input
-    if num < 2:
-        return 0
-    # We are looking for prime numbers that equal 2 or greater
+def find_prime(num):
+    prime_list = []
+    count_div = 0
     
-    #create an array for storing prime numbers
-    primes = [2] #Your choice to initialize it with 2 to make it easier
-    
-    x = 3 #initialize the count number. Starting from 3 because 2 is in array
-    
-    while x <= num:
-        #check if x is prime
-        
-        for y in range (3,x,2):
-            if x%y == 0:
-                x += 2
-                break
-        else:
-            primes.append(x)
-            x += 2
+    for items in range(2, num):
+        for div in range(2, num):
+            if items%div == 0:
+                count_div += 1
+        if count_div == 1:
+            prime_list.append(items)
+        count_div = 0
             
-    print(primes)
+    return (len(prime_list))
 	
+	
+# Printer time countered
+def print_time(mystring):
+    alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+    time = 0
+    time_counter = 0
+    #print (len(mystring))
+    
+    for items in range(1,len(mystring)):
+        time_counter = alphabet.index(mystring[items]) - alphabet.index(mystring[items-1])
+        if time_counter < 0:
+            time_counter = time_counter * -1 
+            if time_counter > 13:
+                time_counter = 26 - time_counter
+            else:
+                time_counter = time_counter
+            
+        time += time_counter
+        
+    return time
+	
+
+# Program to read through folders in a file-path and spit out description
+def find_algorithm():
+    import os # To enable you walk through the OS directory
+    import re # To enable pattern recognition
+    
+    
+    # Take file-path and extract names of files in file-path as list data type
+    check_folder = input("Please enter the file-path of the folder: \n")
+    found_items = os.listdir(check_folder)
+    
+    
+    # Initialize what the pattern to be searched for should look like
+    pattern = "\W\W\W"
+    
+    # Look into the individual txt files and extraxt the description 
+    for items in range(0, len(found_items)):
+        print(f"\n({items + 1}): I found the file named: {found_items[items]}")
+        inside_file = check_folder + '\\' + found_items[items]
+        
+        with open(inside_file, mode ='r', encoding = 'utf-8') as myfile:
+            print("Inside the file, I found this description: \n ")
+            contents = myfile.readlines()
+            
+            for indexing in range(0, len(contents)):
+                if re.search(pattern, contents[indexing]):
+                    print(contents[indexing+1])
+                    break
+                    
+            print("\n\n")
+
 	
 # Nested functions: Functions can be called as variables into other functions. For instance:
 # I would define the first function here:
@@ -2200,10 +2238,206 @@ print(emoji.emojize(":zipper-mouth_face:"))
 #                                                      WORKING WITH FALSK IN PYTHON
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 '''
-Going to a web page would always do a GET request.
-Nevertheless, there are other things that could also be done. Such as: POST, DELETE, OPTIONS, HEAD
+Going to a web page would always do/perform a GET request. What is then returned is normally HTML -- other things like texts or errors may also be returned.
+Nevertheless, there are other things that could also be done. Such as: POST, DELETE, OPTIONS, HEAD.
+'''
+# GET -- Retrieve something from database and send to user -- Example: GET/item/1    [Here an item identified by '1' is retrieved]
+# POST -- Receive data from user, and use it/store -- Example: POST/item    [Here a new item called 'item' is posted to the server]
+# PUT -- Make sure something is there -- Example: PUT/item    [If an item being put is not there, it would create it. If it is there, it will update it]
+# DELETE -- Remove something -- Example: DELETE/item/1
+
+'''
+A REST API is just a way of thinking about how a web server responds to your requests or behaves in general.
+REST API should respond with resources.
+REST API is stateless. In other words; one request cannot depend on any other requests. The server only knows about the current request, and not any previous requests.
+---- Explanation of the STATELESS behavior of REST API ----
+1) A user logs in to a wrb application.
+2) The web server, after logging the user in, no longer knows the user is logged in (it doesn't remember any state).
+3) The web application must therefore send enough data to identify the user IN EVERY REQUEST, or else the server won't associate the request with the user.
 '''
 
+## Example 1: Simple API creation:
+from flask import Flask
+
+app = Flask(__name__)
+# We have to initialize the name of the script we are writing as a name variable for the instance of the 'Flask' class.
+'''
+'app' is our defined instance of the 'Flask' class, so we can use methods from the class
+The single forward slash is normally associated wit routing to a website's homepage.
+Example: 'https://www.google.com/'. 
+An absence of a query or more things after the last forward slash means we are referring to the homepage.
+NOTE: '@app.route() is referred to as an endpoint, and it shoudl be used for all the operations (GET, POST, PUT, DELETE)
+You can have more than one method on your enpoint, depending on what functionality you want to ascribe to your application.
+'''
+@app.route('/', methods=['GET']) # It is up to you to initialize the intended method for the routing in this case. By default app.route makes a 'GET' request.
+def home():
+    return '''
+    <h1>Hello world!</h1>
+    <p>This is my first API.</p>
+    '''
+app.run(port=5000) # This method runs the application, we initialize a port from our PC -- It could be any number really.
+
+
+
+## Example 2: Another API creation:
+from flask import Flask, jsonify, request
+from flask import render_template
+# 'render_template' can be used to render html from flask - useful when making web applications.
+# If focus is just on web api, 'render_template' is not necessary.
+# The jsonify method in flask takes in a dictionary and converts it to text that can be sent over the internet.
+# Always keep in mind that JSON files may look like dictionaries, but are not so.
+
+
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+
+
+# We would be creating an online store in this example
+stores = [
+    {
+        'name': 'Umezude_store',
+        'items': [
+            {
+                'name': "Apple",
+                'price': 4.99
+            },
+            {
+                'name': "Banana",
+                'price': 1.99
+            },
+            {
+                'name': "Mango",
+                'price': 1.29
+            }
+        ]
+    }
+]
+
+app = Flask(__name__)
+
+
+# Home Page - root endpoint
+@app.route('/', methods=['GET'])
+def home():
+    return '''
+    <h1>Hello world!</h1>
+    <p>Welcome to Umezude stores.</p>
+    <p>Hope you find something interesting to pick up, here!.</p>
+    '''
+
+
+# Home page (using 'render_template')
+# I am rendering a HTML embedded javascript file named 'index.html'.
+@app.route('/home')
+def second_home():
+    return render_template('index.html')
+
+
+# POST /store data: {name:} --- To create new store with given name
+@app.route('/store', methods=['POST'])
+def create_store():
+    request_data = request.get_json()
+    new_store = {
+        'name': request_data['name'],
+        'items': []
+    }
+    stores.append(new_store)
+    return jsonify(new_store)
+
+
+# GET /store/<string:name> --- Get a store for some given name
+@app.route('/store/<string:name>') # 'http://127.0.0.1:5000/store/store_name
+# 'name' would be passed in as a variable to the function beneath
+def get_store(name):
+    # Iterate over stores, if store name matches, return store, if store name has no match, return error
+    for existing_store in stores:
+        if existing_store['name'] == name:
+            return jsonify(existing_store)
+        else:
+            return jsonify({'message': 'Store not found'})
+
+
+# GET /store --- Return a list of all the stores
+@app.route('/store')
+def get_stores():
+    return jsonify({'stores': stores})
+
+
+# POST /store/<string:name>/item {name:, price} --- Create an item inside a store with a given name
+@app.route('/store/<string:name>/item', methods=['POST'])
+def create_item_in_store(name):
+    request_data = request.get_json()
+    for existing_store in stores:
+        if existing_store['name'] == name:
+            new_item = {
+                'name': request_data['name'],
+                'price': request_data['price']
+            }
+            existing_store[0]['items'].append(new_item)
+            return jsonify(stores['items'])
+
+    return jsonify({'message': 'Error: Requested store not found.'}) # Message if the requested store can't be found
+
+
+# GET /store/<string:name>/item --- Get all the items in a specific store
+@app.route('/store/<string:name>/item')
+def get_item_in_store(name):
+    # Iterate over stores, if store name matches, return items in store
+    # if store name has no match, return error
+    for existing_store in stores:
+        if existing_store['name'] == name:
+            return jsonify(f"Store contents: {existing_store['items']}")
+
+    return jsonify({'message': 'Error: Requested store not found'}) # Message if the requested store can't be found
+
+
+# Shut the server down
+@app.route('/shutdown', methods=['GET'])
+def shutdown():
+    shutdown_server()
+    return 'Server shutting down...'
+
+app.run(port=5000) # This method runs the application, we initialize a port from our PC -- It could be any number really.
+
+
+
+## Example 3: Simple RESTful api
+# Making a RESTful Api -- RESTful api makes it easy to work with api. Things like 'POST' etc. should be much easier on RESTful.
+from flask import Flask, request
+from flask_restful import Resource, Api # Api and Resource are both classes.
+
+
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+
+
+app = Flask(__name__)
+api = Api(app) # From 'restful', allows resources to be added to the api ---
+# resources are like items that can be returned - every resource has to be a class.
+
+
+class Student(Resource): # The 'Student' class would inherit from the 'Resource' class
+    def get(self, name): # Function to take in name variable
+        return {'Student': name}
+
+
+api.add_resource(Student, '/student/<string:name>') # http://127.0.0.1:5000/student/Johnson to access 'get' function
+
+
+# Shut the server down
+@app.route('/shutdown', methods=['GET'])
+def shutdown():
+    shutdown_server()
+    return 'Server shutting down...'
+
+
+app.run(port=5000)
 
 
 
@@ -2215,7 +2449,7 @@ Nevertheless, there are other things that could also be done. Such as: POST, DEL
 
 
 #*************************************************************************************************************************************************************************************************
-#                                                                             PYTHON FOR DATA-SCIENCE
+#                                                                             PYTHON FOR DATA-SCIENCE and Machine Learning
 #**************************************************************************************************************************************************************************************************
 
 
