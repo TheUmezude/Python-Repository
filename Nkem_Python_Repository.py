@@ -14,6 +14,16 @@ mystring = mystring * 10
 print(mystring) # The print-out of this would be 10 z: zzzzzzzzzz
 # NOTE also that you cannot concatenate strings with non-strings.
 
+
+#String slicing [start:stop:step] -- also applicable for list, tuple, set, etc.
+mystring = "dbjdfidnfnfrkkfnvfkvn"
+print(mystring[6:]) # This would print out from index 6 all the way to the end/
+# result would be: dnfnfrkkfnvfkvn
+print(mystring[6:-1]) # This would print out and stop at the last index character
+# result would be: dnfnfrkkfnvfkv
+print(mystring[::-1]) # This would reverse the string
+# result would be: nvkfvnfkkrfnfndifdjbd
+
 # Important methods to use with strings
 .capitalize() # this capitalizes the first letter in a string -- irrespective if there are multiple full-stops, ONLY the first letter would be capitalized
 .casefold() # this makes the entire characters in the string lower-case **? -- Used for caseless matching
@@ -34,31 +44,36 @@ print(mystring) # The print-out of this would be 10 z: zzzzzzzzzz
 .istitle() # returns 'True' if the first letter of every word of the string is upper-case, and 'False' if not.
 .split(string/character) # returns a list of the words separated by the spaces from a string -- if a character or string is initialized, it returns splitting at that string word or character
 .partition(string/character) # splits the string at only the first occurrence of the initialized string or character -- unlike split, it still returns the initialized character/string
+.replace(string1,string2) # replaces whatever string is denoted in string1 with whatever string is denoted in string2.
 s.center(20,'z') # To center the string 's' between 'z' characters and for a length of 20.
 
 
 #String Interpolations
 
 #using the '.format' method with indexing.
-print ("The {0} {2} {1}".format("quick", "fox", "brown")) # Result: The quick brown fox
+print ("The {0} {2} {1}".format("quick", "fox", "brown")) # Result: The quick brown fox - without typing in the index positions, it would just insert as 0, 1, 2
 
 #using the '.format' method with keywords.
 print ("The {q} {b} {f}".format(q="quick", f="fox", b="brown")) # Result: The quick brown fox
 
 #Using the F-string method
-q = quick
-b = brown
-f = fox
+q = "quick"
+b = "brown"
+f = "fox"
 print(f"The {q} {b} {f}")
 
 # The '.format' method can also be used for float formatting, such as in example---
 result = 100/777  # originally, that result would be: 0.1287001287001287
-# However, if I wantto print to format the result (like rounding it up), and print to screen, I could use the '.format' method and specify width & precision. using format {value:width.precision f} Like so ---
+# However, if I want to format the result (like rounding it up), and print to screen, I could use the '.format' method and specify width & precision. using format {value:width.precision f} Like so ---
 print("The result was {r:1.3f}".format(r=result))
 # Print out would be: 'The result was 0.129'
 # Note, that the width (1) indicates how much white spaces before and with the value, precision (3)indicates how you want it rounded up.
 
 
+# To print out all the letters of the alphabet in lower-case.
+import string
+
+print(string.ascii_lowercase)
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -111,13 +126,13 @@ not # should not occur
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                                            .TXT FILE MANIPULATION
-#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 pwd # To print current working directory.
 
 ##Opening and reading files
 with open('C:\\Users\\Admin\\Desktop\\email.txt') as myfile: # More functionality can be found with using SHIFT + TAB on Jupyter Notebook.
 	myfile.seek(0) # To return the cursor to the beginning point of the file
-	contents = myfile.read() # To read the entire file as a single line -- not the best
+	contents = myfile.read() # To read the entire file. contents becomes a string variable
     contents = myfile.readlines() # contents becomes a list with each element equaling the first line from the text file.
 print(contents)
 	
@@ -131,7 +146,7 @@ print(contents)
 with open('C:\\Users\\Admin\\Desktop\\email.txt', mode = 'w', encoding = 'utf-8') as myfile: #The encoding engine I added here is to allow python write non-English characters into the text file
     myfile.write('\nHello')
 	
-##Opening and adding to files
+##Opening and adding to files -- Note that append does not create the file if the file doesn not already exist
 with open('C:\\Users\\Admin\\Desktop\\email.txt', mode = 'a', encoding = 'utf-8') as myfile: #The encoding engine I added here is to allow python append non-English characters into the text file
     myfile.write('\nInteresting')
 	
@@ -139,7 +154,8 @@ with open('C:\\Users\\Admin\\Desktop\\email.txt', mode = 'a', encoding = 'utf-8'
 ##Opening and reading and writing to files
 with open('C:\\Users\\Admin\\Desktop\\email.txt', mode = 'r+', encoding = 'utf-8') as myfile: #The encoding engine I added here is to allow python read/write non-English characters from/into the text file
     contents = myfile.readlines()
-	
+
+
 ##Opening and overwriting and reading files -- Creates the file if the file initially doesn't exist
 with open('C:\\Users\\Admin\\Desktop\\email.txt', mode = 'w+', encoding = 'utf-8') as myfile: #The encoding engine I added here is to allow python write/read non-English characters to/from the text file
     contents = myfile.readlines()
@@ -163,7 +179,7 @@ Dictionaries are a method of holding a variety of data types, also - just like h
 But dictionaries are different from tuples and lists, because the data is stored in an un-ordered manner.
 Tuples and lists store data in an ordered manner (like keeping socks in shelves in a cabinet), 
 but dictionaries store them in an un-ordered manner (like throwing socks anywhere in your room) - this makes them unable to be sorted.
-Dictionaries are hoever able to access the data they store by means of key-value pairs.
+Dictionaries are however able to access the data they store by means of key-value pairs.
 
 The dictionary syntax is also different from tuple and list syntax. They use curly braces and colons to separate the keys from the associated values.
 Since dictionaries are unsorted, they are useful when you may need to retrieve data, without knowing the exact location of the data - you just call the key.
@@ -177,6 +193,10 @@ print(my_dictionary)
 # Get values out of the dictionary by passing keys
 print(my_dictionary['key1'])
 print(my_dictionary['key2'])
+
+# You can initialize an empty dictionary by using the in-built dict() function:
+empty_dict = dict()
+
 
 # Dictionaries are especially useful for instance when creating programs that store values of items in a store.
 
@@ -243,6 +263,19 @@ sign_name = input("Please enter your username: ")
 sign_pass = input("Please enter your password: ")
 
 sign_check(sign_name, sign_pass, username_mapping)
+
+
+# Important methods to use with Dictionaries 
+.clear() # to remove all the items (keys and values) in a dictionary.
+new = my_dict.copy() # To copy all the key and value information in the exact order from 'my_dict' to 'new'.
+new = new.fromkeys('abc', 'Same val') # Creates a dictionary ('new') with keys 'a', 'b', 'c' all having the same value ('Same val').
+my_dict.get('a_key') # Returns the value in 'my_dict' that is associated with the key ('a_key').
+.items() # Returns the key-value pairs from the dictionary.
+.keys() # Returns the kesy in the dictionary.
+.values() # Returns the values in the dictionary.
+.pop(key) # Removes the specified key and returns the value associated with that key whcih can then be assigned to a variable
+.popitem() # Removes the key and values at the end of a dictionary and returns them as a tuple to be assigned to a variable.
+.setdefault('inserted') # Inserts a key 'inserted' with a value of 'default' if the key is not already in the dictionary. If key is already in the dictionary, it just reassigns its value to None.
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	
 	
@@ -298,7 +331,7 @@ print(List_ADD)
 
 # Important information concerning tuples
 x = 1,2,3 # Python seeing a comma or set of commas between values/items, automatically designates the variable as a type of tuple
-x = (5,) # Even when defining a tuple with a single value, Python needs you to put a comma after the value so it doesn't designate it as a variable with brackets like BODMAS.
+x = (5,) # Even when defining a tuple with a single value, Python needs you to put a comma after the value so it doesn't designate it as a variable with brackets.
 # Tuple methods 
 .count(item) # to count the number of times a given item occured in a tuple -- if the item isn't there, it returns 0.
 .index(item) # to determine the index of an item  for the first time it appears in the tuple.
@@ -311,7 +344,7 @@ x = (5,) # Even when defining a tuple with a single value, Python needs you to p
 .clear() # to remove all the items in a list
 .count(item) # to count the number of times a given item occured in a list -- if the item isn't there, it returns 0.
 .index(item) # to determine the index of an item  for the first time it appears in the list
-.reverse() # to reverse the arrangement of items in a list
+.reverse() # to reverse the arrangement of items in a list in place.
 .remove(item) # to remove the first occurrence of an item in a list
 .copy() # to return the contents of a list as an assignment to a new list variable
 .insert(index, value) # to insert a value into a particular index location in a list
@@ -431,8 +464,8 @@ for a,b in award:
 	
 #Joining lists together
 mylist = [a, b, c, d, e]
-print('%'.join(mylist))
-# The output would be the elements of the list joined with the value between the quotations that is;
+print('%'.join(mylist)) # Note that you can only join string list elements together
+# The output would be a string of the elements of the list joined with the value between the quotations that is;
 a%b%c%d%e
 
 #Write a program that returns the sum of numbers in an array, except ignore sections of numbers starting with a 6 and extending up until a 9 (every 6 would be followed by at-least one 9. Return 0 for no numbers.
@@ -484,6 +517,20 @@ sample_function(y=3, x=7) # Now, when the function executes, the value: 3 would 
 	
 ## 'return' essentially breaks out of a function/loop --
 
+
+"""
+Functions contained here:
+- Functions to reverse an integer.
+- Function to check anagram.
+- Function 1 to sort an array.
+- Function to find the smallest item in an array.
+- Function to reverse a list in-place.
+- Function to check for duplicates of elements within a list.
+- Palindrome checker function.
+- Prime number finder function.
+- Printer time counter.
+- Program to read through folders in a file-path and spit out description.
+"""
 # Interesting 2 functions to reverse an integer.
 def reverse_int(integer):
     rev_int = 0
@@ -502,7 +549,7 @@ def reverse_int(integer):
             rev_int = (rev_int*10) + remainder 
             integer = int(integer/10)
         return rev_int
-# OR
+# OR -- Would not work for integers with negative signs
 def reverse_integer(my_integer):
     string_form = str(my_integer)
     reversed_string = string_form[::-1]
@@ -568,7 +615,33 @@ def sort_array(myarray):
         keep_count += 1
             
     return myarray
+	
+# Function 2 to sort an array -- Also not very processor efficient.
+def sort_array(mylist):
+    
+    length = len(mylist)
+    new = []
+    count = 0
+    
+    while count < length:
+        new.append(mylist.pop(mylist.index(min(mylist))))
+        
+        count += 1
+        
+    return new
 
+
+# Function 3 to sort an array (in place)
+def sort_array(mylist):
+    
+    for i in range(0, len(mylist)):
+        for j in range((i+1), len(mylist)):
+            if mylist[i] > mylist[j]:
+                Temp = mylist[i]
+                mylist[i] = mylist[j]
+                mylist[j] = Temp
+                
+    return mylist
 
 
 # Function to find the smallest item in an array
@@ -601,6 +674,16 @@ def reverse_list(mylist):
 
 
 
+# Function to find the square root of a number
+def square_root(num):
+    
+    for i in range(1, num+1):
+        print(num/i)
+        if int(num/i) <= i:
+            return(int(num/i))
+
+
+
 # Function to check for duplicates of elements within a list
 def detect_duplicate(mylist):
     result = []
@@ -619,7 +702,40 @@ def detect_duplicate(mylist):
         print("There are no duplicate items")
 
 
+# Function to compress a string of number separated by a space with number of times of occurrence before the element
+def compress(strs):
+    
+    string = strs.split()
 
+    res = ""
+
+    count = 1
+
+    #Add in first character
+    res += string[0]
+
+    #Iterate through loop, skipping last one
+    for i in range(len(string)-1):
+        if(string[i] == string[i+1]):
+            count+=1
+        else:
+            if(count >= 1):
+                #Ignore if no repeats
+                res += ' ' + str(count)
+            res += ' ' + string[i+1]
+            count = 1
+    #print last one
+    if(count >= 1):
+        res += ' ' + str(count)
+        
+        
+    string = res.split()
+    
+    for items in range(0, len(string), 2):
+        string[items],string[items+1] = string[items+1],string[items]
+    
+    return " ".join(string)
+	
 
 # Palindrome checker function -- NOTE that a palindrome is a word that looks exactly same when spelt backwards or forwards (e.g 'radar')
 def check_palindrome(mystring):
@@ -645,6 +761,76 @@ def check_palindrome(mystring):
         print(f"{mystring} is definitely not a palindrome")
 
 
+# Function to check for valid parentheses
+'''
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+'''
+def is_valid(strs):
+    my_dict = {'(':')', '[':']', '{':'}'} # map the left parentheses as keys to the right parentheses
+    stack = [] # initialize the stack to have no elements
+    
+    for stuff in strs:
+        # check if the char is in the dictionary keys (left parentheses)
+        if stuff in my_dict.keys():
+            stack.append(stuff)
+        
+        # If not (for right parentheses), check if you can pop aleft parentheses or if the stack is empty
+        elif len(stack) == 0 or my_dict[stack.pop()] != stuff:
+            return False
+        
+    return len(stack) == 0
+	
+
+# Maximum subarray ---- 1
+def max_sub_array(mylist):
+    
+    max_val = mylist[0]
+        
+    for i in range(0, len(mylist)):
+        running = mylist[i]
+        
+        for j in range ((i+1), len(mylist)):
+            running = running + mylist[j]
+            
+            max_val = max(max_val, running)   
+                
+    return max_val
+
+
+# Maximum subarray ---- 2
+def o_n_sum(mylist):
+    
+    max_val = float("-inf")
+    count = 0
+    
+    while count < len(mylist):
+        running_sum = 0
+        running_sum += sum(range(mylist[count], mylist[-1]))
+        
+        if running_sum > max_val:
+            max_val = running_sum
+            
+        count += 1
+    
+    return max_val
+
+
+# Maximum subarray ---- 3
+def on_sum(mylist):
+    
+    for i in range(1,len(mylist)):
+        if mylist[i-1] > 0:
+            mylist[i] += mylist[i-1]
+            
+        print(mylist)
+        
+    return max(mylist)       
+
 
 # Prime number finder function
 def find_prime(num):
@@ -660,9 +846,100 @@ def find_prime(num):
         count_div = 0
             
     return (len(prime_list))
+
+
+# Prime number finder function2
+def find_prime(num):
+    
+    prime_list = []
+    
+    #remove 0,1 --- if num is less than or equal to 2
+    if num <= 2:
+        prime_list.append(2)
+        return prime_list
+    
+    #remove even numbers ---- if num is greater than 2
+    elif num > 2:
+        prime_list.append(2)
+        prime_list.append(3)
+        #initialize divisor
+        counter = 5
+        
+        while counter <= num:
+            for items in range(3,counter,2):
+                if counter%items == 0:
+                    counter+=2
+                    break
+                    
+            else:
+                prime_list.append(counter)
+                counter+= 2
+                
+    print(len(prime_list))
+    return prime_list
 	
+# Prime finder function 3
+def prime_finder(num):
+    prime_list = []
+    
+    if num < 2: # num = maybe 0 or 1
+        print(len(prime_list))
+        return prime_list
+    
+    elif num == 2: # num = 2
+        prime_list.append(2)
+        print(len(prime_list))
+        return prime_list
+    
+    else: # num = 2 or more
+        prime_list.append(2)
+        #prime_list.append(3)
+        
+    check = 3
+    
+    while check <= num: # loop will be ended as check increments
+        for items in range(3, check, 2): # We are going from 3 to whatever the num might be (through 'check') in increments of 2 
+            if check%items == 0: # if its mod already equals 0, it is not prime
+                check += 2 # increase the check for the next odd number
+                break
+                
+        else:
+            prime_list.append(check)
+            check += 2
+            
+    print(len(prime_list))
+    return prime_list
+    
+
+# Longest substring finder
+def longest_substring(mystring):
+    longest = []
+    longest_sub = []
+    index_count = 0
+    total = 0
+    
+    while index_count < len(mystring):
+        parser = []
+        for items in range(index_count, len(mystring)):
+            if mystring[items] not in parser:
+                parser.append(mystring[items])
+                
+            else:
+                break
+                
+        index_count += 1
+        longest.append(parser)
+        
+    for items in longest:
+        if len(items) > total:
+            total = len(items)
+            longest_sub = items
+            
+    print(longest)
+    return longest_sub
+    
 	
-# Printer time countered
+# Printer time counter
 def print_time(mystring):
     alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
     time = 0
@@ -681,7 +958,97 @@ def print_time(mystring):
         time += time_counter
         
     return time
+
+
+# Longest common prefix
+"""
+Write a function to find the longest common prefix string amongst an array of strings.
+If there is no common prefix, return an empty string "".
+
+Input: strs = ["flower","flow","flight"]
+Output: "fl"
+
+Input: strs = ["dog","racecar","car"]
+Output: ""
+"""
+def longest_prefix(mylist):
+    # Make prefix list and initialize as empty
+    prefix = []
+    final_prefix = []
+    word = mylist[0]
+    #keep_checking = True
+    counter = 0
+    
+    # Loop through the list and find the shortest word
+    for items in mylist:
+        if len(items) < len(word):
+            word = items.lower()
+            
+    # Check for no word at all
+    if word == "":
+        return ""
+    
+    # Append the characters in the shortest word to the prefix list
+    prefix = [character for character in word]
+    #print(prefix)
+    
+    # Look through the characters of the shortest word from behind and remove anything that is not in other words
+    while counter < len(mylist):
+        for index in range(0, len(prefix)):
+            if prefix[index] == mylist[counter][index]:
+                pass
+            else:
+                prefix[index] = None
+            
+        counter += 1
+    
+    #print(prefix)
+    for item in prefix:
+        if item == None:
+            break
+        else:
+            final_prefix.append(item)
+    #final_prefix = [item for item in prefix if item != None]
+    
+    
+    if len(final_prefix) == 0:
+        answer = ""
+        return answer
+    
+    else:
+        # Join the string elements in the prefix list and send out as a single word
+        answer = "".join(final_prefix)
+        return answer
+
+
+# Leetcode problem
+"""
+Given an integer num, repeatedly add all its digits until the result has only one digit, and return it.
+
+Input: num = 38
+Output: 2
+Explanation: The process is
+38 --> 3 + 8 --> 11
+11 --> 1 + 1 --> 2 
+Since 2 has only one digit, return it.
+"""
+def add(number):
+    
+    def inner_add(num):
+        num = str(num)
+        inside_list = [int(item) for item in num]
+        
+        return sum(inside_list)
+    
+    result = inner_add(number)
+    #print(result)
+    
+    while result > 9:
+        result = inner_add(result)
+        
+    return result
 	
+
 
 # Program to read through folders in a file-path and spit out description
 def find_algorithm():
@@ -769,7 +1136,13 @@ def NewFunction(**kwargs): # A dictionary would be returned
 		print('I did not find any fruit here.')
 		
 #We can call the function, now;
-NewFunction(fruit = 'Apple', vegetable = 'Tomatoes')
+NewFunction(fruit = 'Apple', vegetable = 'Tomatoes') # -- Notice that the keys, here, are not with a quote.
+
+def func_args_kwargs(*args, **kwargs): #Function that takes in both args and kwargs. Note that based on how the function is defined, the args have to come in before the kwargs.
+    print(f"I would like {args[2]} number of {kwargs['car']}")
+	
+func_args_kwargs(2,3,4,1,2,4,car = 'Volvo') # This prints out: 'I would like 4 number of Volvo'
+
 '''
 Additional stuff----------------------------------------------
 NOTE that functions relate to variables using the LEGB notation, where:
@@ -788,6 +1161,22 @@ def func():
 	
 	x = 200 # Local reassignment of 'x'
 	print(f"Now the value of 'x' is {x}")
+
+
+
+# Local, Enclosing, Global variable example:
+var1 = 'I am the Global variable Var1' # Global variable -- the only variable farther than the global is the built-in.
+
+def something():
+    var1 = 'I am the enclosing variable Var1' # Enclosing variable -- if commented out, Global would be used.
+    
+    def spitout():
+        var1 = 'I am the local variable Var1' # Local variable -- if commented out, Enclosing would be used.
+        print(f"I am working with this var1: {var1}")
+        
+    spitout()
+
+
 
 def user_choice():
     choice = 'WRONG!!'
@@ -1037,6 +1426,7 @@ def splicer(mystring):
 
 new_string = ['Lion', 'Tiger', 'Goose', 'Antelope', 'Duck']
 
+# When calling the 'map' function, you do not need to add the parenthesis '()' to execute it. The map would execute it.
 print(tuple(map(splicer,new_string))) #Here, a tuple would be iteratively created based on the operations defined in the function and on the established data 
 new_tuple = tuple(map(splicer,new_string))  # The iteratively created tuple can be assigned to a tuple variable.
 
@@ -1046,9 +1436,13 @@ for n in map(splicer,new_string):
 	print(n)  #This still performs the operation, but doesn't create a list or tuple out of the results
 
 
+# Map-based code line to convert input integers separated by space to integers appended to a list
+inp = list(map(int,input().split())) 
+
 
 #----------------------------- FILTER -------------------------------------------------------
 #Filters act like maps, in that they apply a function operation on a set of data values, however, they return based on bolean -- Such as in the example below
+# To use the Filter function, you would need to create a function that returns 'True' or 'False' or it might return a less than appropriate result.
 def check_even(number):
 	return number % 2 == 0 #This would return 'True' if the number sent into the function is even, and 'False' if the number sent into the function is odd
 
@@ -1123,10 +1517,10 @@ A sample class is shown below with its attributes, and a way to relate a variabl
 class GroupMates(): # Class names should be written with 'Camel' casing
     # Defining a CLASS OBJECT ATTRIBUTE
     # supposedly to be constant for any instance of the class
-    animal = 'human'
+    animal = 'human' # When calling this class object attribute, you would need to use 'self.animal' or 'GroupMates.animal'.
     
     def __init__(self, name, nationality, personality): # If there are no initializations in the '__init__' method, you may be able to get away with not defining it, as Pythin would do that.
-        
+    # Note that the '__init__' method is a Nonetype and should never return anything  
         # Attributes
         # We take in the argument
         # The argument is assigned to self.(the attribute name)
@@ -1136,6 +1530,7 @@ class GroupMates(): # Class names should be written with 'Camel' casing
     
     # Method: functions inside of a class -------- You can have more than one method for a single class definition.
     def usual_statement(self,date): # 'date' here, is an external variable that is inputted by the user
+	# The 'self' keyword in the definition of the method connects the method to the instance of the class.
         print(f'I want to get the job! - {self.name}, {date}') # External variables can also be used in performing operations, and not just printing out.
 
 mate1 = GroupMates('Irfan', 'Pakistani', 'nice') #Here, we are letting python know that 'mate1' is an instance of the class 'GroupMates', then we pass parameters
@@ -1183,8 +1578,10 @@ print(circle1.circumference)  #You don't use '()' because 'circumference' is jus
 class Animal():
 
 	def __init__(self): # Here we are not passing in an attribute
+	# The __init__ method automatically gets executed whenever an instance of a class is created. So in this case, the 'print' is executed.
 		print('Animal Created!')
 	
+	# Other methods, such as the ones below, only get executed when they are called by the instance.
 	def who_am_i(self):
 		print('I am an animal.')
 		
@@ -1196,16 +1593,50 @@ Now we create another class which is supposed to inherit from the first class
 In this class that inherits from the previous class, several other methods can be added 
 Or methods from the previous class can be overwritten by naming methods in this new class with the same name as the class they are inheriting from 
 '''
-class Cat():
+class Cat(Animal):
 
 	def __init__(self):
-		Animal.__init__(self) # With this, the previous class which was defined, 'Animal', is linked to this new class called dog, so that its attributes can be used
+		Animal.__init__(self) # With this, the previous class which was defined, 'Animal', is linked to this new class called 'Cat', so that its attributes can be used
+		# The 'Cat' '__init__' method should take in the same number of arguments as the one in the parent class.
 		print('Cat created!') # When this prints, 'Animal Created' and 'Cat created' would both print out.
 		
 	def me(self): # Here, I am also creating a new method and linking the the method from class 'Animal' called 'who_am_i'.
 #	I may also decide to override the 'who_am_i' method by naming this method in the Cat class the exact name as what is in the animal class, i.e: 'who_am_i'
-		Animal.who_am_i(self)
+		Animal.who_am_i(self) # To execute the '__init__' method from 'Animal' class.
 		print('A cat, to be precise.')
+
+
+# More Inheritance examples:
+class Human(): # Parent class definition 
+# Normally, there should be no instance created for a parent class -- especially if used as an abstract parent class.
+    def __init__(self): # Parent class should normally not take any arguments in '__init__'.
+        print("Human initialized") # Inheritance should never return anything, it can only print.
+        
+    def declare(self):
+        print(f"I am a human.")
+    
+    def specification(self):
+        print f"I have no defined specification."
+		
+		
+class Boy(Human): # child class inheriting from the parent class
+    def __init__(self, name, age):
+        Human.__init__(self, name, age) # parent and child class should have same or more arguments if the parent method is to be called.
+        print("I am a boy, though.")
+        
+    def declare(self):
+        Human.declare(self) # This would be disregarded (since it is redefined, here), unless the function prints, as opposed to returning anything.
+        return f"I am a boy. My name is {self.name}, and my age is {self.age}." # Only the 'Boy' class method would return anything, here. The information returned by the parent class would be completely ignored.
+		
+		
+class Girl(Human):
+    def __init__(self):
+        Human.__init__(self)
+        print("I am a girl, though.")
+        
+    def specification(self):
+        Human.specification(self)
+        return f"I am a girl, to be precise."
 
 
 #----------------------------------- POLYMORPHISM -----------------------------------
@@ -1550,7 +1981,7 @@ try:
 
 except: #Note that you can except for specific errors, such as -- except TypeError: -- You can also have more than one except error 
     print("Hey, looks like we aren't adding in the proper way.")
-else:
+else: # This would execute if the program did not have to move to the 'except' block of code. i.e., if the 'try' block proceeded well.
     print("Addition is looking good, so far.")
 
 # This is an example of a 'try-except-finally' error. Here, the code block in 'finally' would always run, no matter what. The excepts would run if any of their errors is raised.
@@ -1661,6 +2092,10 @@ shutil.move('Desktop\\Free-time\\Doyinsola.docx', 'Desktop')    # Here, I am usi
 import os
 import shutil
 shutil.move('Desktop\\Free-time\\Doyinsola.docx', os.getcwd()) # Now you are moving the file to your current working directory without needing to write out its path.
+
+# To create a directory
+new_directory = os.path.join('Tensorflow', 'workspace', 'images', 'collectedimages') 
+# The directory would be created in the current directory as: Tensorflow\workspace\images\collectedimages
 
 
 # To delete files:
